@@ -30,6 +30,8 @@ import com.google.gson.Gson;
 public class WorldTimeJsonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        resp.setHeader("Access-Control-Allow-Origin", "*");
         // JSR-310 (java.time 패키지) API 활용
 
         // 요청 파라미터로 변경

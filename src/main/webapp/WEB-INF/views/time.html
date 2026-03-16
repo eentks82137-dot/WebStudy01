@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      input {
+        margin-top: 10px;
+        padding: 10px 20px;
+      }
+      select {
+        margin-top: 10px;
+        padding: 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <div>
+      <form>
+        <input onclick="getTime(event)" type="button" value="시간 조회" />
+        <div>
+          <select name="locale" id="locale">
+            <option value="ko-KR">한국어</option>
+            <option value="en-US">영어</option>
+            <option value="ja-JP">일본어</option>
+            <option value="zh-CN">중국어</option>
+          </select>
+        </div>
+        <div>
+          <select name="timezone" id="timezone">
+            <option value="Asia/Seoul">서울</option>
+            <option value="America/New_York">뉴욕</option>
+            <option value="Europe/London">런던</option>
+            <option value="Asia/Tokyo">도쿄</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div>
+      <div style="display: flex">
+        <h1>Locale-</h1>
+        <h1 id="localeData"></h1>
+      </div>
+      <div style="display: flex">
+        <h1>Timezone-</h1>
+        <h1 id="timezoneData"></h1>
+      </div>
+      <div style="display: flex">
+        <h1 id="time"></h1>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    const getTime = async (event) => {
+      if (event) {
+        event.preventDefault();
+      }
+      let locale = document.getElementById("locale").value;
+      let timezone = document.getElementById("timezone").value;
+
+      const response = await fetch(
+        `http://localhost:8080/hw01/worldtime/json?locale=${locale}&timezone=${timezone}`,
+      );
+      const data = await response.json();
+      console.log(data);
+      document.getElementById("localeData").textContent = data.locale;
+      document.getElementById("timezoneData").textContent = data.timezone;
+      document.getElementById("time").textContent = data.now;
+    };
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      await getTime();
+    });
+  </script>
+</html>

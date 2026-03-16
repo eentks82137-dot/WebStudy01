@@ -6,6 +6,8 @@
 
     <groupId>kr.or.ddit</groupId>
     <artifactId>webstudy01</artifactId>
+
+    <packaging>war</packaging>
     <version>1.0</version>
 
     <properties>

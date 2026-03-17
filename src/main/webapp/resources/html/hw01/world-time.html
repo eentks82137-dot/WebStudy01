@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>World Time Service</title>
+  </head>
+  <body>
+    <h1>세계 시간 서비스</h1>
+    <form method="GET" action="../../../hw01/worldtime">
+      <label for="locale">로케일:</label>
+      <select name="locale" id="locale">
+        <option value="ko-KR">한국어</option>
+        <option value="en-US">영어</option>
+        <option value="ja-JP">일본어</option>
+      </select>
+      <br /><br />
+      <label for="timezone">타임존:</label>
+      <select name="timezone" id="timezone">
+        <option value="Asia/Seoul">서울</option>
+        <option value="America/New_York">뉴욕</option>
+        <option value="Europe/London">런던</option>
+      </select>
+      <br /><br />
+      <button type="submit">시간 확인 (Sync)</button>
+      <button type="button" id="fetch-btn">시간 확인 (Async)</button>
+    </form>
+    <div id="result"></div>
+    <script
+      type="text/javascript"
+      src="../../js/app/hw01/world-time.js"
+    ></script>
+  </body>
+</html>

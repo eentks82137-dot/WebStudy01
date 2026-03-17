@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>World Time Service (CSR)</title>
+  </head>
+  <body>
+    <h1>세계 시간 서비스 (CSR)</h1>
+
+    <label for="locale">로케일:</label>
+    <select id="locale">
+      <option value="">로딩 중...</option>
+    </select>
+
+    <label for="timezone">타임존:</label>
+    <select id="timezone">
+      <option value="">로딩 중...</option>
+    </select>
+
+    <button id="fetchBtn">시간 확인</button>
+
+    <div id="result"></div>
+
+    <script type="text/javascript" src="../../js/app/hw01/world-time-csr.js">
+      // 1. 페이지 로드 시: /hw01/worldtime/options 에서 로케일/타임존 목록 데이터 fetch
+      //    - 응답 JSON의 locales 배열로 locale <select>의 <option> 동적 생성
+      //    - 응답 JSON의 timezones 배열로 timezone <select>의 <option> 동적 생성
+
+      // 2. 버튼 클릭 시: 선택된 로케일/타임존으로 /hw01/worldtime/json 에 fetch
+      //    - 응답 JSON 데이터로 result 영역에 시간 정보 UI 생성
+    </script>
+  </body>
+</html>

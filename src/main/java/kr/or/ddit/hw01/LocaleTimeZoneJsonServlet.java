@@ -37,7 +37,7 @@ public class LocaleTimeZoneJsonServlet extends HttpServlet {
         }
 
         Map<String, String> timeZoneMap = new HashMap<>();
-        timeZoneMap.putAll(ZoneId.getAvailableZoneIds().stream()
+        timeZoneMap.putAll(ZoneId.getAvailableZoneIds().stream().filter(e -> !e.contains("+"))
                 .collect(Collectors.toMap(
                         z -> z,
                         z -> ZoneId.of(z).getDisplayName(TextStyle.FULL, Locale.getDefault()))));

@@ -5,11 +5,29 @@ interface WorldTime {
   locale: string;
   timezone: string;
 }
+interface TimeOptions {
+  locales: Record<string, string>;
+  timezones: Record<string, string>;
+}
 
 export default function Time() {
   const [time, setTime] = useState<WorldTime>();
   const [locale, setLocale] = useState<string>("ko-KR");
   const [timezone, setTimezone] = useState<string>("Asia/Seoul");
+
+  const [options, setOptions] = useState<TimeOptions>();
+
+  const getOptions = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/hw01/worldtime/options",
+      );
+      const data = await response.json();
+      setOptions(data);
+    } catch (error) {
+      console.error("옵션을 불러오는 중 에러가 발생했습니다:", error);
+    }
+  };
 
   const getTime = async () => {
     try {
@@ -22,6 +40,10 @@ export default function Time() {
       console.error("데이터를 불러오는 중 에러가 발생했습니다:", error);
     }
   };
+
+  useEffect(() => {
+    getOptions();
+  }, []);
 
   useEffect(() => {
     getTime();
@@ -43,11 +65,12 @@ export default function Time() {
             onChange={(e) => setLocale(e.target.value)}
             style={styles.select}
           >
-            <option value="ko-KR">Korean (ko-KR)</option>
-            <option value="en-US">English (en-US)</option>
-            <option value="ja-JP">Japanese (ja-JP)</option>
-            <option value="es-ES">Spanish (es-ES)</option>
-            <option value="fr-FR">French (fr-FR)</option>
+            {options?.locales &&
+              Object.entries(options.locales).map(([key, value]) => (
+                <option key={key} value={key}>
+                  {key} - {value}
+                </option>
+              ))}
           </select>
         </div>
 
@@ -62,9 +85,12 @@ export default function Time() {
             onChange={(e) => setTimezone(e.target.value)}
             style={styles.select}
           >
-            <option value="Asia/Seoul">Asia/Seoul</option>
-            <option value="America/New_York">America/New_York</option>
-            <option value="Europe/London">Europe/London</option>
+            {options?.timezones &&
+              Object.entries(options.timezones).map(([key, value]) => (
+                <option key={key} value={key}>
+                  {key} - {value}
+                </option>
+              ))}
           </select>
         </div>
       </div>

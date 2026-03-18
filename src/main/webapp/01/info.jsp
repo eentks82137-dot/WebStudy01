@@ -1,0 +1,29 @@
+<!-- This is a template for displaying language, country, and timezone information 
+ Like jsp, it uses placeholders for dynamic content 
+ @ is used to denote placeholders that will be replaced with actual values when the page is rendered
+ -->
+
+<html>
+  <head>
+    <title>Information</title>
+    <style type="text/css">
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <pre>
+            Language: ${language}
+            Country: ${country}
+            Timezone: ${timezone}
+        </pre
+    >
+  </body>
+</html>

@@ -8,11 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.ZoneId;
 import java.time.format.TextStyle;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -25,7 +23,6 @@ public class WorldTimeUIServlet extends HttpServlet {
         // 1.
 
         Locale[] locales = Locale.getAvailableLocales();
-        Set<String> zoneSet = ZoneId.getAvailableZoneIds();
 
         // 2.
         Map<String, String> localeMap = new HashMap<>();
@@ -42,6 +39,7 @@ public class WorldTimeUIServlet extends HttpServlet {
                 .collect(Collectors.toMap(
                         z -> z,
                         z -> ZoneId.of(z).getDisplayName(TextStyle.FULL, Locale.getDefault()))));
+
         // ====================UI 작업===========================
 
         // 3. map -> option 생성

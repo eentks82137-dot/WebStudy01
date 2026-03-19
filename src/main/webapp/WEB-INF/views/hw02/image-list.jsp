@@ -1,0 +1,59 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image List</title>
+</head>
+<body>
+    <h1>Image List</h1>
+
+    <div>
+        <h1>SSR</h1>
+
+        <div>
+            <select name="imageName" id="imageName1">
+                <c:forEach var="image" items="${imageList}">
+                    <option value="${image}">${image}</option>
+                </c:forEach>
+            </select>
+            <button onclick="submitForm(1)">Submit</button>
+        </div>
+    </div>
+
+
+    <div>
+        <h1>CSR</h1>
+            <div>
+                <select name="imageName" id="imageName2">
+                </select>
+                            <button onclick="submitForm(2)">Submit</button>
+
+            </div>
+
+    </div>
+
+    <script>
+    
+    const submitForm = (type) => {
+        const selectElement = type === 1 ? document.getElementById("imageName1") : document.getElementById("imageName2");
+        const selectedValue = selectElement.value;
+        location.href = `http://localhost:8080/hw02/image?imageName=\${selectedValue}`;
+    }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const response = await fetch("http://localhost:8080/hw02/imageList/json");
+            const imageList = await response.json();
+            console.log(imageList);
+            const frag = document.createDocumentFragment();
+            imageList.forEach(image => {
+                const option = new Option(image, image);
+                frag.appendChild(option);
+            });
+            document.getElementById("imageName2").appendChild(frag);
+        })
+    </script>
+</body>
+</html>

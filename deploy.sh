@@ -19,8 +19,21 @@ sudo rm -rf /opt/tomcat/webapps/ROOT /opt/tomcat/webapps/ROOT.war
 echo "📦 새 버전 배포 중..."
 sudo cp target/*.war /opt/tomcat/webapps/ROOT.war
 
-echo "✅ 배포 완료! 로그를 출력합니다..."
+echo "✅ 배포 완료!"
+
+# 4. 톰캣 프로세스 확인, 없으면 시작
+TOMCAT_PID=$(ps -ef | grep tomcat | grep -v grep | awk '{print $2}')
+
+if [ -z "$TOMCAT_PID" ]; then
+    echo "Tomcat이 실행 중이 아닙니다."
+    /opt/tomcat/bin/startup.sh
+    echo "Tomcat을 시작했습니다."
+else
+    echo "Tomcat이 실행 중입니다. PID: $TOMCAT_PID"
+fi
+
+
 echo "------------------------------------------"
 
-# 4. 로그 실시간 확인
+# 5. 로그 실시간 확인
 sudo tail -f /opt/tomcat/logs/catalina.out

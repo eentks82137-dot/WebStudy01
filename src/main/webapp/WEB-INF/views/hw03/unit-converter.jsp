@@ -13,7 +13,7 @@
 <h1>${isKorean ? '단위 변환기' : 'Unit Converter'}</h1>
 <h3>${isKorean ? 'JSP와 JSON 두 가지 방식으로 결과를 확인할 수 있습니다.' : 'You can view the result in both JSP and JSON formats.'}</h3>
 
-<form action="http://localhost:8080//hw03/convert">
+<form action="http://localhost:8080/hw03/convert">
     <label for="value">${isKorean ? '값:' : 'Value:'}</label>
     <input type="text" id="value" name="value" required>
     

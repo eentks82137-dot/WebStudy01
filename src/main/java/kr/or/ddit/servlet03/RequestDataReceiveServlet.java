@@ -22,6 +22,7 @@ public class RequestDataReceiveServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("test123");
         req.setCharacterEncoding("UTF-8");
         // request line : URL, Method, Protocol
         String uri = req.getRequestURI();

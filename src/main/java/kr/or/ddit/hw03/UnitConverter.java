@@ -5,7 +5,11 @@ import java.util.Locale;
 
 public class UnitConverter {
     public static double converter(String from, String to, String value) {
+        if (from == null && to == null && value == null) {
+            return 0;
+        }
         if (from == null || to == null || value == null || from.isBlank() || to.isBlank() || value.isBlank()) {
+
             throw new IllegalArgumentException("파라미터가 누락되었습니다");
         }
 

@@ -90,9 +90,20 @@
                 ${isKorean ? '에서' : 'to'} 
                 <span id="to">${to}</span>
                 </div>
-                <p id="result">${isKorean ? '결과' : 'Result'}: ${result}</p>
-                <p id="formattedResult">${isKorean ? '형식화된 결과' : 'Formatted Result'}: ${formattedResult}</p>
-            <p><span id="locale"></span>${isKorean ? '로케일' : 'Locale'}: ${locale}</p>
+                <p id="">${isKorean ? '결과' : 'Result'}: <span id="result">
+                ${result}
+                </span>
+                </p>
+                <p id="">${isKorean ? '형식화된 결과' : 'Formatted Result'}: 
+                <span id="formattedResult"></span>
+                ${formattedResult}
+                
+                </p>
+            <p><span id=""></span>${isKorean ? '로케일' : 'Locale'}
+            <span id="locale">
+            ${locale}
+            </span>
+            </p>
         </c:if> 
     </div>
     <hr>
@@ -126,14 +137,14 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
-                        document.getElementById('error').textContent = `${uiText.error}: \${data.error}`;
-                        document.getElementById('status').textContent = `${uiText.status}: \${data.status}`;
-                        document.getElementById('message').textContent = `${uiText.message}: \${data.message}`;
+                        document.getElementById('error').textContent = `\${uiText.error}: \${data.error}`;
+                        document.getElementById('status').textContent = `\${uiText.status}: \${data.status}`;
+                        document.getElementById('message').textContent = `\${uiText.message}: \${data.message}`;
                         return;
                     }
                     document.getElementById('result').textContent = data.result;
                     document.getElementById('formattedResult').textContent = data.formattedResult;
-                    document.getElementById('locale').textContent = `${uiText.locale}: \${data.locale}`;
+                    document.getElementById('locale').textContent = `\${uiText.locale}: \${data.locale}`;
                 })
                 .catch(error => console.error('Error:', error));
             });

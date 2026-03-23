@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index</title>
+  </head>
+  <body>
+    <h1>Index</h1>
+
+    <script>
+      const list = [
+        { name: "Unit Converter", url: "http://localhost:8080/hw03/convert" },
+        { name: "Image List", url: "http://localhost:8080/hw02/imageList" },
+        {
+          name: "World Time CN",
+          url: "http://localhost:8080/hw03/worldtime/ui",
+        },
+      ];
+      document.addEventListener("DOMContentLoaded", () => {
+        const container = document.createElement("div");
+        container.style.display = "flex";
+        container.style.flexDirection = "column";
+        container.style.gap = "10px";
+
+        list.forEach((item) => {
+          const link = document.createElement("a");
+          link.href = item.url;
+          link.target = "_blank";
+          link.textContent = item.name;
+          container.appendChild(link);
+        });
+
+        document.body.appendChild(container);
+      });
+    </script>
+  </body>
+</html>

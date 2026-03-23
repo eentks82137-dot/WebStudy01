@@ -13,5 +13,7 @@
     <p> 현재 시간: 
     <%= request.getAttribute("now") %>
     </p>
+    <p>Locale: ${locale}</p>
+    <p>Timezone: ${timezone}</p>
 </body>
 </html>

@@ -24,29 +24,32 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/hw02/worldtime")
 public class WorldTimeModel2Servlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // JSR-310 (java.time 패키지) API 활용
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                // JSR-310 (java.time 패키지) API 활용
 
-        // 요청 파라미터로 변경
-        ZoneId zone = Optional.ofNullable(req.getParameter("timezone"))
-                .map(ZoneId::of)
-                .filter(z -> !z.getId().isBlank())
-                .orElse(ZoneId.systemDefault());
+                // 요청 파라미터로 변경
+                ZoneId zone = Optional.ofNullable(req.getParameter("timezone"))
+                                .map(ZoneId::of)
+                                .filter(z -> !z.getId().isBlank())
+                                .orElse(ZoneId.systemDefault());
 
-        LocalDateTime now = LocalDateTime.now(zone);
+                LocalDateTime now = LocalDateTime.now(zone);
 
-        // 요청 파라미터로 변경
-        Locale locale = Optional.ofNullable(req.getParameter("locale"))
-                .map(Locale::forLanguageTag)
-                .filter(l -> !l.getLanguage().isBlank())
-                .orElse(Locale.getDefault());
+                // 요청 파라미터로 변경
+                Locale locale = Optional.ofNullable(req.getParameter("locale"))
+                                .map(Locale::forLanguageTag)
+                                .filter(l -> !l.getLanguage().isBlank())
+                                .orElse(Locale.getDefault());
 
-        String formatted = now.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.MEDIUM)
-                .localizedBy(locale));
+                String formatted = now
+                                .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.MEDIUM)
+                                                .localizedBy(locale));
 
-        req.setAttribute("now", formatted);
-        String view = "/WEB-INF/views/hw02/world-time.jsp";
-        req.getRequestDispatcher(view).forward(req, resp);
-    }
+                req.setAttribute("now", formatted);
+                req.setAttribute("timezone", zone);
+                req.setAttribute("locale", locale);
+                String view = "/WEB-INF/views/hw02/world-time.jsp";
+                req.getRequestDispatcher(view).forward(req, resp);
+        }
 }

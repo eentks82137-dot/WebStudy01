@@ -17,6 +17,7 @@
     <label for="value">${isKorean ? '값:' : 'Value:'}</label>
     <input type="text" id="value" name="value" required>
     
+    <div>
     <label for="from">${isKorean ? '변환 전 단위:' : 'From unit:'}</label>
     <select id="from" name="from" required>
         <option value="km">km</option>
@@ -28,7 +29,8 @@
         <option value="kg">kg</option>
         <option value="lb">lb</option>
     </select>
-
+    </div>
+<div>
     <label for="to">${isKorean ? '변환 후 단위:' : 'To unit:'}</label>
     <select id="to" name="to" required>
         <option value="km">km</option>
@@ -40,11 +42,13 @@
         <option value="kg">kg</option>
         <option value="lb">lb</option>
     </select>
+</div>
 
     <button type="submit">${isKorean ? '변환' : 'Convert'}</button>
     <button type="button">${isKorean ? '변환(JSON)' : 'Convert (JSON)'}</button>
 </form>
 
+<hr>
     <div>
         <h3>${isKorean ? '지원되는 변환' : 'Supported Conversions'}</h3>
         <table>
@@ -74,21 +78,24 @@
             </tbody>        
         </table>
     </div>
-    
+    <hr>
 
     <div>
         <c:if test="${not empty result}">
-            <p>
+        <p>
                 ${isKorean ? '변환 결과' : 'Conversion result'}:
+        </p>
+                <div>
                 <span id="from">${from}</span>
-                ${isKorean ? '에서' : 'to'}
+                ${isKorean ? '에서' : 'to'} 
                 <span id="to">${to}</span>
-                <span id="result">${result}</span>,
-                <span id="formattedResult">${formattedResult}</span>
-            </p>
+                </div>
+                <p id="result">${isKorean ? '결과' : 'Result'}: ${result}</p>
+                <p id="formattedResult">${isKorean ? '형식화된 결과' : 'Formatted Result'}: ${formattedResult}</p>
             <p><span id="locale"></span>${isKorean ? '로케일' : 'Locale'}: ${locale}</p>
         </c:if> 
     </div>
+    <hr>
     <div>
         <p id="error">
         </p>

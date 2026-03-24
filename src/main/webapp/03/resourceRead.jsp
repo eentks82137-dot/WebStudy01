@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.net.URL,java.io.InputStream"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,6 @@
 <%
     String logical = "https://pokeapi.co/api/v2/pokemon/ditto";
     URL url = new URL(logical);
-    InputStream is = url.openStream();
 %>
      
 </body>

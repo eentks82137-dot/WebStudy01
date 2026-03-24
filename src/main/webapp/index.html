@@ -21,12 +21,21 @@
           name: "http://localhost:8080/03/data-form.jsp",
           url: "http://localhost:8080/03/data-form.jsp",
         },
+        {
+          name: "http://localhost:8080/03/echo",
+          url: "http://localhost:8080/03/echo",
+        },
+        {
+          name: "http://localhost:8080/03/resourceIdentify.jsp",
+          url: "http://localhost:8080/03/resourceIdentify.jsp",
+        },
       ];
       document.addEventListener("DOMContentLoaded", () => {
         const container = document.createElement("div");
         container.style.display = "flex";
         container.style.flexDirection = "column";
         container.style.gap = "10px";
+        container.style.width = "200px";
 
         list.forEach((item) => {
           const link = document.createElement("a");

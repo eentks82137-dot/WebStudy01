@@ -19,6 +19,15 @@
 <%
     String logical = "https://pokeapi.co/api/v2/pokemon/ditto";
     URL url = new URL(logical);
+    out.println("URL : " + url);
+    try(InputStream is = url.openStream()){
+        byte[] buffer = new byte[is.available()];
+        is.read(buffer);
+        String content = new String(buffer, "UTF-8");
+        out.println("Content : " + content);
+    }catch(Exception e) {
+        e.printStackTrace();
+    } 
 %>
      
 </body>

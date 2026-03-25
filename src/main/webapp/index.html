@@ -33,13 +33,17 @@
           name: "http://localhost:8080/03/resourceRead.jsp",
           url: "http://localhost:8080/03/resourceRead.jsp",
         },
+        {
+          name: "http://localhost:8080/04/responseDesc.jsp",
+          url: "http://localhost:8080/04/responseDesc.jsp",
+        },
       ];
       document.addEventListener("DOMContentLoaded", () => {
         const container = document.createElement("div");
         container.style.display = "flex";
         container.style.flexDirection = "column";
         container.style.gap = "10px";
-        container.style.width = "200px";
+        container.style.width = "300px";
 
         list.forEach((item) => {
           const link = document.createElement("a");

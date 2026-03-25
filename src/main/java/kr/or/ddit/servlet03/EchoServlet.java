@@ -43,6 +43,13 @@ public class EchoServlet extends HttpServlet {
         Gson gson = new Gson();
         EchoRequest reqDto = gson.fromJson(req.getReader(), EchoRequest.class);
 
+        // 사용자 입력 검증
+        if (reqDto == null || reqDto.getMessage() == null || reqDto.getLanguage() == null
+                || reqDto.getMessage().trim().isBlank()) {
+            sendErrorMessage(resp, HttpServletResponse.SC_BAD_REQUEST, "잘못된 요청");
+            return;
+        }
+
         // 3. 비즈니스 로직 객체 활용
         EchoResponse respDto = echoService.processEcho(reqDto);
 

@@ -121,7 +121,7 @@ public class UnitConvertServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         session.setAttribute("error1", errorResponse.getMessage());
-        String view = "/hw04/convert";
+        String view = req.getContextPath() + "/hw04/convert";
         resp.sendRedirect(view);
     }
 
@@ -133,7 +133,7 @@ public class UnitConvertServlet extends HttpServlet {
     private void handleHtml(Object nativeTarget, HttpServletResponse resp, HttpServletRequest req) throws IOException {
         HttpSession session = req.getSession();
         session.setAttribute("target1", nativeTarget);
-        String view = "/hw04/convert";
+        String view = req.getContextPath() + "/hw04/convert";
         resp.sendRedirect(view);
     }
 }

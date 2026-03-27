@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@100..900&display=swap");
 @font-face {
   font-family: "D2Coding"; /* 내가 부를 이름 */
   src: url("../fonts/D2Coding-Ver1.3.2-20180524-ligature.ttc")
@@ -17,3 +16,28 @@
   src: url("../fonts/JetBrains\ Mono\ Bold\ Nerd\ Font\ Complete-Hangul.ttf")
     format("truetype");
 }
+
+.nanum-gothic-regular {
+  font-family: "Nanum Gothic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.nanum-gothic-bold {
+  font-family: "Nanum Gothic", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.nanum-gothic-extrabold {
+  font-family: "Nanum Gothic", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+/*  
+Noto Sans KR
+Nanum Gothic
+Nanum Gothic Coding
+
+*/

@@ -35,11 +35,10 @@
             padding: 10px;
             border: 1px solid #ddd;
             overflow-x: auto;
-            font-size: 14px;
-            font-family:  "Nanum Gothic";
-
-            font-weight: 600;
-            line-height: 1.5;
+            font-size: 16px;
+            font-family:  "Nanum Gothic Coding";
+            font-weight: 700;
+            line-height: 1.2;
         }   
     </style>
 </head>

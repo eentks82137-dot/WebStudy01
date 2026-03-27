@@ -32,16 +32,21 @@ public class UnitConvertServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        if (session.getAttribute("unitGroup") != null) {
-            session.removeAttribute("message");
+        Map<UnitType, List<Unit>> unitGroup = Arrays.stream(Unit.values())
+                .collect(Collectors.groupingBy(unit -> unit.getType()));
+        req.setAttribute("unitGroup", unitGroup);
+        String view = "/WEB-INF/views/hw04/convert.jsp";
+        req.getRequestDispatcher(view).forward(req, resp);
+        if (session.getAttribute("target1") != null) {
+            session.removeAttribute("target1");
             resp.sendRedirect("");
             return;
         }
-        Map<UnitType, List<Unit>> unitGroup = Arrays.stream(Unit.values())
-                .collect(Collectors.groupingBy(unit -> unit.getType()));
-        session.setAttribute("unitGroup", unitGroup);
-        String view = "/WEB-INF/views/hw04/convert.jsp";
-        req.getRequestDispatcher(view).forward(req, resp);
+        if (session.getAttribute("error1") != null) {
+            session.removeAttribute("error1");
+            resp.sendRedirect("");
+            return;
+        }
     }
 
     @Override
@@ -74,22 +79,31 @@ public class UnitConvertServlet extends HttpServlet {
         } catch (UnitConversionException unitConversionException) {
             status = HttpServletResponse.SC_BAD_REQUEST;
             nativeTarget = new ErrorResponse(status, unitConversionException.getMessage(), reqDTO);
+            sendError(req, resp, nativeTarget.toString(), status, reqDTO);
+            return;
         } catch (RuntimeException runtimeException) {
             status = HttpServletResponse.SC_BAD_REQUEST;
             nativeTarget = new ErrorResponse(status, runtimeException.getMessage(), reqDTO);
+            sendError(req, resp, nativeTarget.toString(), status, reqDTO);
+            return;
         }
 
-        if (status != 400) {
-            resp.setStatus(status);
-        }
-        handleJson(nativeTarget, resp);
+        handleJson(nativeTarget, resp, req);
 
     }
 
     private void sendError(HttpServletRequest req, HttpServletResponse resp, String message, int status,
             ConversionRequest reqDTO)
-            throws IOException {
+            throws IOException, ServletException {
         resp.setStatus(status);
+        if (req.getHeader("Accept").contains("html")) {
+            HttpSession session = req.getSession();
+            ErrorResponse errorResponse = new ErrorResponse(status, message, reqDTO);
+            session.setAttribute("error1", message);
+            String view = "/hw04/convert";
+            resp.sendRedirect(view);
+            return;
+        }
         try (PrintWriter out = resp.getWriter()) {
             // accept 검사는 패스
             resp.setContentType("application/json;charset=UTF-8");
@@ -100,9 +114,16 @@ public class UnitConvertServlet extends HttpServlet {
         }
     }
 
-    private void handleJson(Object nativeTarget, HttpServletResponse resp) throws IOException {
-        resp.setContentType("application/json");
-        new Gson().toJson(nativeTarget, resp.getWriter());
+    private void handleJson(Object nativeTarget, HttpServletResponse resp, HttpServletRequest req) throws IOException {
+        if (req.getHeader("Accept").contains("html")) {
+            HttpSession session = req.getSession();
+            session.setAttribute("target1", nativeTarget);
+            String view = "/hw04/convert";
+            resp.sendRedirect(view);
+        } else {
+            resp.setContentType("application/json");
+            new Gson().toJson(nativeTarget, resp.getWriter());
+        }
     }
 
 }

@@ -35,7 +35,15 @@
 <input type="submit" value="변환">
 </form>
 
+<c:if test="${not empty target1}">
+    <p>From ${target1.from} To ${target1.to}: ${target1.value}</p>
+    <p>Result: ${target1.result}</p>
+    <p>Formatted result: ${target1.formattedResult}</p>
+    <p>Locale: ${target1.locale}</p>
+</c:if>
 
-    ㅁㄴㅇ
+<c:if test="${not empty error1}">
+    <p style="color: red;">${error1}</p>
+</c:if>
 </body>
 </html>

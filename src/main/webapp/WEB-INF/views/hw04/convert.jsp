@@ -9,7 +9,7 @@
 </head>
 <body>
 <form action="" method="post" encType="application/x-www-form-urlencoded">
-<input type="text" name="value" id="value" placeholder="변환 수치 입력">
+<input type="text" name="value" id="value" placeholder="변환 수치 입력" autocomplete="off">
 <select name="from" id="from">
     <c:forEach var="entry" items="${unitGroup}">
         <c:set var="unitType" value="${entry.key}"/>

@@ -60,6 +60,14 @@
             <artifactId>lombok</artifactId>
             <version>1.18.44</version>
         </dependency>
+
+        <!-- Jackson Databind (JSON processing library) -->
+        <dependency>
+            <groupId>tools.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>3.1.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

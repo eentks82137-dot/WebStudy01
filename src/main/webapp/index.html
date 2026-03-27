@@ -5,9 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Index</title>
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/resources/css/style.css"
+    />
   </head>
   <body>
-    <h1>Index</h1>
+    <div class="container">
+      <header>
+        <h1>Localhost Projects</h1>
+      </header>
+      <div id="link-div"></div>
+    </div>
 
     <script>
       const list = [
@@ -17,43 +26,39 @@
           name: "World Time CN",
           url: "http://localhost:8080/hw03/worldtime/ui",
         },
+        { name: "Data Form", url: "http://localhost:8080/03/data-form.jsp" },
+        { name: "Echo Service", url: "http://localhost:8080/03/echo" },
         {
-          name: "http://localhost:8080/03/data-form.jsp",
-          url: "http://localhost:8080/03/data-form.jsp",
-        },
-        {
-          name: "http://localhost:8080/03/echo",
-          url: "http://localhost:8080/03/echo",
-        },
-        {
-          name: "http://localhost:8080/03/resourceIdentify.jsp",
+          name: "Identify",
           url: "http://localhost:8080/03/resourceIdentify.jsp",
         },
         {
-          name: "http://localhost:8080/03/resourceRead.jsp",
+          name: "Read Resource",
           url: "http://localhost:8080/03/resourceRead.jsp",
         },
         {
-          name: "http://localhost:8080/04/responseDesc.jsp",
+          name: "Response Desc",
           url: "http://localhost:8080/04/responseDesc.jsp",
         },
+        { name: "유닛 변환기 (v4)", url: "http://localhost:8080/hw04/convert" },
       ];
+
       document.addEventListener("DOMContentLoaded", () => {
-        const container = document.createElement("div");
-        container.style.display = "flex";
-        container.style.flexDirection = "column";
-        container.style.gap = "10px";
-        container.style.width = "300px";
+        const container = document.getElementById("link-div");
 
         list.forEach((item) => {
           const link = document.createElement("a");
           link.href = item.url;
           link.target = "_blank";
-          link.textContent = item.name;
+          link.className = "link-item";
+
+          link.innerHTML = `
+            <span class="link-name">${item.name}</span>
+            <span class="link-url">${item.url}</span>
+          `;
+
           container.appendChild(link);
         });
-
-        document.body.appendChild(container);
       });
     </script>
   </body>

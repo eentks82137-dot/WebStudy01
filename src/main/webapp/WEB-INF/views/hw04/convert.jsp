@@ -6,6 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <style>
+    
+        body {
+            font-family: 'NanumGothic', sans-serif;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        #result p {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
 <form action="" method="post" encType="application/x-www-form-urlencoded">
@@ -36,10 +53,13 @@
 </form>
 
 <c:if test="${not empty target1}">
-    <p>From ${target1.from} To ${target1.to}: ${target1.value}</p>
-    <p>Result: ${target1.result}</p>
-    <p>Formatted result: ${target1.formattedResult}</p>
-    <p>Locale: ${target1.locale}</p>
+<div id="result">
+    <p><strong>From</strong> ${target1.from} <strong>To</strong> ${target1.to}</p>
+    <p><strong>Input:</strong> ${target1.value}</p>
+    <p><strong>Result:</strong> ${target1.result}</p>
+    <p><strong>Formatted result:</strong> ${target1.formattedResult}</p>
+    <p><strong>Locale:</strong> ${target1.locale}</p>
+</div>
 </c:if>
 
 <c:if test="${not empty error1}">

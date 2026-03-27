@@ -6,18 +6,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resource Identify</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <style>
         pre {
             background-color: #f4f4f4;
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
-            font-size: 1.2em;
+            font-size: 1.0em;
             line-height: 1.5em;
+            font-family: 'NanumGothic' !important;
         }
     </style>
 </head>
-<body>
+<body style="font-family: 'NanumGothic' !important;">
         <h4>자원의 접근 경로에 따른 분류</h4>
         <pre>
         File System Resource : 물리적인 절대 경로를 통해 접근할 수 있는 자원

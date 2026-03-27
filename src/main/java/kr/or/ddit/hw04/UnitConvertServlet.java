@@ -98,7 +98,6 @@ public class UnitConvertServlet extends HttpServlet {
         resp.setStatus(status);
         if (req.getHeader("Accept").contains("html")) {
             HttpSession session = req.getSession();
-            ErrorResponse errorResponse = new ErrorResponse(status, message, reqDTO);
             session.setAttribute("error1", message);
             String view = "/hw04/convert";
             resp.sendRedirect(view);
@@ -108,7 +107,7 @@ public class UnitConvertServlet extends HttpServlet {
             // accept 검사는 패스
             resp.setContentType("application/json;charset=UTF-8");
             ErrorResponse errorResponse = new ErrorResponse(status, message, reqDTO);
-            String json = new Gson().toJson(errorResponse);
+            String json = new Gson().toJson(message);
             out.print(json);
             return;
         }

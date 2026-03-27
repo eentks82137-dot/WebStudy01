@@ -1,0 +1,100 @@
+:root {
+  --bg-color: #f8f9fa;
+  --card-bg: #ffffff;
+  --primary-color: #2ecc71; /* 개발자 느낌의 초록색 */
+  --text-color: #2c3e50;
+  --border-color: #dfe6e9;
+  --hover-bg: #f1f2f6;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: "NanumGothic", sans-serif;
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  margin: 0;
+  padding-top: 50px;
+}
+
+/* 카드 스타일 */
+.container {
+  width: 100%;
+  max-width: 700px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  border: 1px solid var(--border-color);
+}
+
+header {
+  border-bottom: 2px solid var(--primary-color);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header h1::before {
+  content: ">_"; /* 터미널 느낌 */
+}
+
+/* 링크 리스트 스타일 */
+#link-div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.link-item {
+  text-decoration: none;
+  color: var(--text-color);
+  padding: 15px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: white;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link-item:hover {
+  background-color: var(--hover-bg);
+  border-color: var(--primary-color);
+  transform: translateX(5px);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.link-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.link-url {
+  font-size: 0.85rem;
+  color: #95a5a6;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .container {
+    margin: 20px;
+    padding: 20px;
+  }
+  .link-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}

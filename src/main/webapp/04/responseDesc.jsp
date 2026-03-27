@@ -15,10 +15,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Response Desc</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
         body {
-            font-family: Arial, sans-serif;
+            font-family: "NanumGothic";
             margin: 20px;
         }
         fieldset {
@@ -36,7 +36,7 @@
             border: 1px solid #ddd;
             overflow-x: auto;
             font-size: 14px;
-            font-family:  JetBrains Mono ,Consolas, monospace;
+            font-family:  "NanumGothic";
 
             font-weight: 600;
             line-height: 1.5;

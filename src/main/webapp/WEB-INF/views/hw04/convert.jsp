@@ -8,7 +8,6 @@
     <title>Title</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fonts.css">
     <style>
-    
         body {
             font-family: 'Nanum Gothic', sans-serif;
         }
@@ -22,6 +21,7 @@
         #result p {
             margin: 5px 0;
         }
+        
     </style>
 </head>
 <body>

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resource Identify</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fonts.css">
     <style>
         pre {
             background-color: #f4f4f4;
@@ -15,11 +15,11 @@
             overflow-x: auto;
             font-size: 1.0em;
             line-height: 1.5em;
-            font-family: 'NanumGothic' !important;
+            font-family: 'Nanum Gothic' !important;
         }
     </style>
 </head>
-<body style="font-family: 'NanumGothic' !important;">
+<body style="font-family: 'Nanum Gothic' !important;">
         <h4>자원의 접근 경로에 따른 분류</h4>
         <pre>
         File System Resource : 물리적인 절대 경로를 통해 접근할 수 있는 자원

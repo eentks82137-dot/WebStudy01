@@ -15,10 +15,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Response Desc</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fonts.css">
     <style>
         body {
-            font-family: "NanumGothic";
+            font-family: "Nanum Gothic";
             margin: 20px;
         }
         fieldset {
@@ -36,7 +36,7 @@
             border: 1px solid #ddd;
             overflow-x: auto;
             font-size: 14px;
-            font-family:  "NanumGothic";
+            font-family:  "Nanum Gothic";
 
             font-weight: 600;
             line-height: 1.5;

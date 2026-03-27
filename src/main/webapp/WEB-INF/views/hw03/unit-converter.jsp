@@ -8,6 +8,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${isKorean ? '단위 변환기' : 'Unit Converter'}</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fonts.css">
+    <style>
+        body {
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+    </style>
 </head>
 <body>
 <h1>${isKorean ? '단위 변환기' : 'Unit Converter'}</h1>

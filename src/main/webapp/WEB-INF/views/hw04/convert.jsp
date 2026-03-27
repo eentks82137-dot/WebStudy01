@@ -6,11 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fonts.css">
     <style>
     
         body {
-            font-family: 'NanumGothic', sans-serif;
+            font-family: 'Nanum Gothic', sans-serif;
         }
         #result {
             margin-top: 20px;

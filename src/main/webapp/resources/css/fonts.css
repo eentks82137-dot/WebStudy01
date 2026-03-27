@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap");
+
+@font-face {
+  font-family: "D2Coding"; /* 내가 부를 이름 */
+  src: url("../fonts/D2Coding-Ver1.3.2-20180524-ligature.ttc")
+    format("truetype-collection");
+  font-weight: normal, bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "JetBrains Mono"; /* 내가 부를 이름 */
+  src: url("../fonts/JetBrains\ Mono\ Medium\ Nerd\ Font\ Complete-Hangul.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: "JetBrains Bold"; /* 내가 부를 이름 */
+  src: url("../fonts/JetBrains\ Mono\ Bold\ Nerd\ Font\ Complete-Hangul.ttf")
+    format("truetype");
+}

@@ -1,10 +1,13 @@
 package kr.or.ddit.hw05.service;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import kr.or.ddit.hw05.domain.ConvertiblePair;
 import kr.or.ddit.hw05.dto.ExchangeRequestDTO;
@@ -21,11 +24,20 @@ public class ExchangeService {
         }
     }
 
-    private static final double rate = 1500.0;
+    private static final double rate;
 
     public static final Map<ConvertiblePair, Converter> converterMap;
     static { // 클래스 초기화 블록, 클래스가 로드될 때 한 번 실행된다. static 블록은 클래스 변수(converterMap)를 초기화하는 데
              // 사용된다.
+        double tempRate = 1500.0;
+        try {
+            tempRate = GetExchangeRate.getRate("USD", "KRW");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        rate = tempRate;
+
         Currency won = Currency.getInstance("KRW");
         Currency dollar = Currency.getInstance("USD");
         converterMap = new HashMap<>();
@@ -34,6 +46,10 @@ public class ExchangeService {
         converterMap.put(new ConvertiblePair(won, won), Converter.identity());
         converterMap.put(new ConvertiblePair(dollar, dollar), Converter.identity());
 
+    }
+
+    public List<Currency> getConvertibleCurrencies() {
+        return converterMap.keySet().stream().flatMap(t -> Stream.of(t.getFrom(), t.getTo())).distinct().toList();
     }
 
     public ExchangeResponseDTO exchange(ExchangeRequestDTO reqDTO, Locale locale) {
@@ -48,10 +64,11 @@ public class ExchangeService {
         double convertedAmount = converter.convert(amount);
         NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
         formatter.setCurrency(to);
+        formatter.setMaximumFractionDigits(2);
         String formattedResult = formatter.format(convertedAmount);
 
         return ExchangeResponseDTO.builder()
-                .amount(convertedAmount)
+                .amount(amount)
                 .from(from)
                 .to(to)
                 .convertedAmount(convertedAmount)

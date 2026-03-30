@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.or.ddit.hw05.dto.ExchangeRequestDTO;
 import kr.or.ddit.hw05.dto.ExchangeResponseDTO;
 import kr.or.ddit.hw05.service.ExchangeService;
+import kr.or.ddit.hw05.service.GetExchangeRate;
 import kr.or.ddit.hw05.validation.ExchangeValidator;
 
 @WebServlet("/hw05/exchange")
@@ -37,6 +38,14 @@ public class ExchangeServlet extends HttpServlet {
         if (responseDTO != null) {
             req.setAttribute(MODEL_NAME, responseDTO);
             session.removeAttribute(MODEL_NAME); // flash attribute
+        }
+        try {
+            double changeRate = GetExchangeRate.getRate("USD", "KRW");
+            req.setAttribute("changeRate", changeRate);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         List<Currency> currencies = service.getConvertibleCurrencies();

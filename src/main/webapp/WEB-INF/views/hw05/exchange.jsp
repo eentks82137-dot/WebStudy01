@@ -8,7 +8,10 @@
     <title>Title</title>
 </head>
 <body>
-    
+    <c:if test="${not empty changeRate}">
+        <p>환율: ${changeRate}</p>
+    </c:if>
+
     <form action="" method="post" >
         <input type="text" name="amount">
         <select name="from" id="from">

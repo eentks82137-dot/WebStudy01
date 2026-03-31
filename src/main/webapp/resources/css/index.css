@@ -1,7 +1,7 @@
 :root {
   --bg-color: #f8f9fa;
   --card-bg: #ffffff;
-  --primary-color: #2ecc71; /* 개발자 느낌의 초록색 */
+  --primary-color: #2ecc71;
   --text-color: #2c3e50;
   --border-color: #dfe6e9;
   --hover-bg: #f1f2f6;
@@ -22,12 +22,13 @@ body {
 /* 카드 스타일 */
 .container {
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
   background: var(--card-bg);
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   padding: 30px;
   border: 1px solid var(--border-color);
+  margin-bottom: 50px;
 }
 
 header {
@@ -85,6 +86,11 @@ header h1 {
 .link-url {
   font-size: 0.85rem;
   color: #95a5a6;
+}
+
+.link-desc {
+  font-size: 0.8rem;
+  color: #acacac;
 }
 
 /* 반응형 */

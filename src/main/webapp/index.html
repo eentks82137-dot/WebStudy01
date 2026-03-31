@@ -14,7 +14,7 @@
         <img src="./resources/images/icon_5.png" alt="Icon" />
       </div>
       <header>
-        <h1>Localhost Projects</h1>
+        <h1>URL List</h1>
       </header>
       <div id="link-div"></div>
     </div>
@@ -32,24 +32,21 @@
         {
           name: "Identify",
           url: "http://localhost:8080/03/resourceIdentify.jsp",
+          desc: "URL / URI, 자원의 접근 경로에 따른 분류",
         },
-        {
-          name: "Read Resource",
-          url: "http://localhost:8080/03/resourceRead.jsp",
-        },
+
         {
           name: "Response Desc",
           url: "http://localhost:8080/04/responseDesc.jsp",
+          desc: "HttpServletResponse",
         },
-        { name: "유닛 변환기 (v4)", url: "http://localhost:8080/hw04/convert" },
+        { name: "유닛 변환기", url: "http://localhost:8080/hw04/convert" },
         {
           url: "http://localhost:8080/hw06/calc",
           name: "Calculator",
+          desc: "사칙연산",
         },
-        {
-          url: "http://localhost:8080/hw06/mdn",
-          name: "MDN Web Docs Proxy",
-        },
+
         {
           url: "http://localhost:8080/resources/html/hw06/iframe-view.html",
           name: "/resources/html/hw06/iframe-view.html",
@@ -57,20 +54,28 @@
         {
           url: "http://localhost:8080/hw05/exchange",
           name: "Exchange",
+          desc: "환율 계산기",
+          date: "2026-03-30",
         },
       ];
 
       document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("link-div");
 
-        list.forEach((item) => {
+        list.reverse().forEach((item) => {
           const link = document.createElement("a");
+          const span = document.createElement("span");
           link.href = item.url;
           link.target = "_blank";
           link.className = "link-item";
 
           link.innerHTML = `
-            <span class="link-name">${item.name}</span>
+            <span class="link-name">
+              ${item.name} 
+              <span class="link-desc">${item.desc || ""}</span>
+              <span class="link-desc">${item.date || ""}</span>
+
+            </span>
             <span class="link-url">${item.url}</span>
           `;
 

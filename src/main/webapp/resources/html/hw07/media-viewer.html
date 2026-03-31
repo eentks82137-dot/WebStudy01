@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media Viewer</title>
+    <link rel="stylesheet" href="../../css/media-viewer.css" />
+  </head>
+  <body>
+    <div class="select-container">
+      <select name="media" id="media">
+        <option value="" disabled selected>미디어 파일을 선택하세요</option>
+
+        <optgroup id="videos" label="Videos" name="videos"></optgroup>
+        <optgroup id="images" label="Images" name="images"></optgroup>
+        <optgroup id="texts" label="Texts" name="texts"></optgroup>
+      </select>
+    </div>
+
+    <div id="viewer"></div>
+
+    <script src="../../js/app/hw07/media-viewer.js"></script>
+  </body>
+</html>

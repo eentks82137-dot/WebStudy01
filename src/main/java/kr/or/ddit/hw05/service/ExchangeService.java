@@ -2,6 +2,7 @@ package kr.or.ddit.hw05.service;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
@@ -24,19 +25,21 @@ public class ExchangeService {
         }
     }
 
-    private static final double rate;
+    private static double rate;
 
     public static final Map<ConvertiblePair, Converter> converterMap;
     static { // 클래스 초기화 블록, 클래스가 로드될 때 한 번 실행된다. static 블록은 클래스 변수(converterMap)를 초기화하는 데
              // 사용된다.
-        double tempRate = 1500.0;
         try {
-            tempRate = GetExchangeRate.getRate("USD", "KRW");
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            rate = GetExchangeRate.getRate("USD", "KRW");
+        } catch (IOException | InterruptedException | ParseException e) {
+            rate = 1500;
+            throw new RuntimeException("환율 정보를 가져오는 데 실패했습니다.", e);
+            // Unchecked 예외로 감싸서 던지면, 이 예외를 처리하지 않아도 컴파일 에러가 발생하지 않는다. 런타임에 예외가 발생할 수 있지만,
+            // 컴파일 시점에서는 이를 강제하지 않는다.
         }
 
-        rate = tempRate;
+        // rate = tempRate;
 
         Currency won = Currency.getInstance("KRW");
         Currency dollar = Currency.getInstance("USD");

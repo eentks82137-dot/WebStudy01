@@ -46,6 +46,8 @@ public class ExchangeServlet extends HttpServlet {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         List<Currency> currencies = service.getConvertibleCurrencies();

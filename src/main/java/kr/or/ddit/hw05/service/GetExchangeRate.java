@@ -6,6 +6,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,7 +16,7 @@ import org.jsoup.select.Elements;
 
 public class GetExchangeRate {
 
-    public static double getRate(String from, String to) throws IOException, InterruptedException {
+    public static double getRate(String from, String to) throws IOException, InterruptedException, ParseException {
         // TODO from, to 문자열 말고 Currency 타입으로 변경하기
         String src = "https://finance.naver.com/marketindex/exchangeDetail.naver?marketindexCd=FX_%s%s".formatted(from,
                 to);
@@ -27,10 +30,10 @@ public class GetExchangeRate {
         String respBody = resp.body();
         Document doc = Jsoup.parse(respBody);
         Elements temp = doc.select(selector);
-        String rateString = temp.text().replaceAll(",", "");
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.KOREA);
+        String rateString = temp.text();
         try {
-            double rate = Double.parseDouble(rateString);
-            // System.out.println(rate);
+            double rate = numberFormat.parse(rateString).doubleValue();
             return rate;
         } catch (Exception e) {
             throw e;

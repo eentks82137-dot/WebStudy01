@@ -6,7 +6,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
+import org.apache.commons.lang3.function.Failable;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -52,11 +56,28 @@ public class HttpClientApiTest {
         } catch (Exception e) {
             throw e;
         }
-
     }
 
     @Test
-    public void testExchangeAPI2() throws IOException, InterruptedException {
+    public void testExchangeAPI1() throws IOException, InterruptedException {
+        String src = "https://finance.naver.com/marketindex/exchangeList.naver";
+        HttpClient httpClient = HttpClient.newHttpClient();
+        URI uri = URI.create(src);
+        HttpRequest httpRequest = HttpRequest.newBuilder().uri(uri).GET().header("accept", "text/html").build();
+        HttpResponse<String> resp = httpClient.send(httpRequest, BodyHandlers.ofString());
+
+        String respBody = resp.body();
+        Document doc = Jsoup.parse(respBody);
+        NumberFormat formatter = NumberFormat.getInstance(Locale.KOREA);
+
+        double rateUSD = doc.select(".tit").stream().filter(el -> el.text().contains("USD")).findFirst()
+                .map(el -> el.parent()).map(p -> p.selectFirst(".sale")).map(s -> s.text())
+                .map(Failable.asFunction(t -> formatter.parse(t).doubleValue())).orElse(1500d);
+        System.out.println("1 USD -> %.2f KRW".formatted(rateUSD));
+    }
+
+    @Test
+    public void testExchangeAPI2() throws IOException, InterruptedException, ParseException {
         double rateJPY = GetExchangeRate.getRate("JPY", "KRW");
         System.out.println("100 JPY -> %.2f KRW".formatted(rateJPY));
 

@@ -85,21 +85,21 @@ public class MediaStreamServlet extends HttpServlet {
             }
         }
 
-        long contentLength = end - start + 1;
+        long contentLength = end - start + 1; // 클라이언트에게 전송할 콘텐츠 길이 계산
         resp.setContentType(mime);
         resp.setHeader("Accept-Ranges", "bytes");
 
         if (isPart) {
             resp.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT); // 부분 콘텐츠 응답
-            resp.setHeader("Content-Range", "bytes " + start + "-" + end + "/" + length);
+            resp.setHeader("Content-Range", "bytes " + start + "-" + end + "/" + length); // Content-Range 헤더 설정
         } else {
             resp.setStatus(HttpServletResponse.SC_OK);
         }
-        resp.setHeader("Content-Length", String.valueOf(contentLength));
+        resp.setHeader("Content-Length", String.valueOf(contentLength)); // Content-Length 헤더 설정
 
-        try (RandomAccessFile raf = new RandomAccessFile(file, "r");
+        try (RandomAccessFile raf = new RandomAccessFile(file, "r"); // 파일을 읽기 모드로 열고, try-with-resources로 자동으로 닫히도록 함
                 OutputStream out = resp.getOutputStream()) {
-            raf.seek(start);
+            raf.seek(start); // 파일 포인터를 시작 위치로 이동
 
             byte[] buffer = new byte[8192]; // 8KB 버퍼
             long bytesToRead = contentLength; // 남은 바이트 수

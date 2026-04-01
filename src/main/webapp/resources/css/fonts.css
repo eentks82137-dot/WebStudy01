@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 @font-face {
   font-family: "D2Coding"; /* 내가 부를 이름 */
   src: url("../fonts/D2Coding-Ver1.3.2-20180524-ligature.ttc")
@@ -6,16 +7,16 @@
   font-weight: normal, bold;
   font-style: normal;
 }
-@font-face {
-  font-family: "JetBrains Mono"; /* 내가 부를 이름 */
+/* @font-face {
+  font-family: "JetBrains Mono"; 
   src: url("../fonts/JetBrains\ Mono\ Medium\ Nerd\ Font\ Complete-Hangul.ttf")
     format("truetype");
 }
 @font-face {
-  font-family: "JetBrains Bold"; /* 내가 부를 이름 */
+  font-family: "JetBrains Bold"; 
   src: url("../fonts/JetBrains\ Mono\ Bold\ Nerd\ Font\ Complete-Hangul.ttf")
     format("truetype");
-}
+} */
 
 .nanum-gothic-regular {
   font-family: "Nanum Gothic", sans-serif;

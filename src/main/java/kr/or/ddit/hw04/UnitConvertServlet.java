@@ -22,9 +22,12 @@ import kr.or.ddit.hw04.dto.ErrorResponse;
 import kr.or.ddit.hw04.exception.UnitConversionException;
 import kr.or.ddit.hw04.service.UnitConversionService;
 import kr.or.ddit.hw04.validation.ConversionValidator;
+import kr.or.ddit.mvc.ViewResolver;
+import kr.or.ddit.mvc.ViewResolverComposite;
 
 @WebServlet("/hw04/convert")
 public class UnitConvertServlet extends HttpServlet {
+    private ViewResolver viewResolver = new ViewResolverComposite();
     private final UnitConversionService conversionService = new UnitConversionService();
 
     @Override
@@ -46,8 +49,10 @@ public class UnitConvertServlet extends HttpServlet {
         Map<UnitType, List<Unit>> unitGroup = Arrays.stream(Unit.values())
                 .collect(Collectors.groupingBy(unit -> unit.getType()));
         req.setAttribute("unitGroup", unitGroup);
-        String view = "/WEB-INF/views/hw04/convert.jsp";
-        req.getRequestDispatcher(view).forward(req, resp);
+
+        viewResolver.resolveViewName("/hw04/convert", req, resp);
+        // String view = "/WEB-INF/views/hw04/convert.jsp";
+        // req.getRequestDispatcher(view).forward(req, resp);
     }
 
     @Override
@@ -109,7 +114,7 @@ public class UnitConvertServlet extends HttpServlet {
     }
 
     private void sendError(HttpServletRequest req, HttpServletResponse resp, ErrorResponse errorResponse)
-            throws IOException {
+            throws IOException, ServletException {
         String accept = req.getHeader("Accept");
 
         if (accept != null && accept.contains("json")) {
@@ -121,8 +126,10 @@ public class UnitConvertServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         session.setAttribute("error1", errorResponse.getMessage());
-        String view = req.getContextPath() + "/hw04/convert";
-        resp.sendRedirect(view);
+
+        viewResolver.resolveViewName("redirect:/hw04/convert", req, resp);
+        // String view = req.getContextPath() + "/hw04/convert";
+        // resp.sendRedirect(view);
     }
 
     private void handleJson(Object nativeTarget, HttpServletResponse resp, HttpServletRequest req) throws IOException {
@@ -130,10 +137,13 @@ public class UnitConvertServlet extends HttpServlet {
         new Gson().toJson(nativeTarget, resp.getWriter());
     }
 
-    private void handleHtml(Object nativeTarget, HttpServletResponse resp, HttpServletRequest req) throws IOException {
+    private void handleHtml(Object nativeTarget, HttpServletResponse resp, HttpServletRequest req)
+            throws IOException, ServletException {
         HttpSession session = req.getSession();
         session.setAttribute("target1", nativeTarget);
-        String view = req.getContextPath() + "/hw04/convert";
-        resp.sendRedirect(view);
+
+        viewResolver.resolveViewName("redirect:/hw04/convert", req, resp);
+        // String view = req.getContextPath() + "/hw04/convert";
+        // resp.sendRedirect(view);
     }
 }

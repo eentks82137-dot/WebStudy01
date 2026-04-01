@@ -18,10 +18,14 @@ import jakarta.servlet.http.HttpSession;
 import kr.or.ddit.hw06.dto.CalcRequestDTO;
 import kr.or.ddit.hw06.dto.CalcResponseDTO;
 import kr.or.ddit.hw06.validate.Validate;
+import kr.or.ddit.mvc.ViewResolver;
+import kr.or.ddit.mvc.ViewResolverComposite;
 import kr.or.ddit.hw06.service.CalcService;
 
 @WebServlet("/hw06/calc")
 public class CalculatorServlet extends HttpServlet {
+    private ViewResolver viewResolver = new ViewResolverComposite();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
@@ -150,7 +154,8 @@ public class CalculatorServlet extends HttpServlet {
         // req.setAttribute("expression", respDTO.getExpression());
         HttpSession session = req.getSession();
         session.setAttribute("expression", respDTO.getExpression());
-        resp.sendRedirect(req.getContextPath() + "/hw06/calc");
+        // resp.sendRedirect(req.getContextPath() + "/hw06/calc");
+        viewResolver.resolveViewName("redirect:/hw06/calc", req, resp);
     }
 
     /**
@@ -173,7 +178,7 @@ public class CalculatorServlet extends HttpServlet {
     }
 
     private void sendErrorResponse(HttpServletRequest req, HttpServletResponse resp, String errorMessage)
-            throws IOException {
+            throws IOException, ServletException {
         String acceptHeader = req.getHeader("Accept");
         String acceptBody = req.getParameter("accept");
         String accept = "";
@@ -195,7 +200,8 @@ public class CalculatorServlet extends HttpServlet {
             req.setAttribute("error", errorMessage);
             try {
                 req.getSession().setAttribute("expression", errorMessage);
-                resp.sendRedirect(req.getContextPath() + "/hw06/calc");
+                viewResolver.resolveViewName("redirect:/hw06/calc", req, resp);
+                // resp.sendRedirect(req.getContextPath() + "/hw06/calc");
             } catch (IOException e) {
                 e.printStackTrace();
             }

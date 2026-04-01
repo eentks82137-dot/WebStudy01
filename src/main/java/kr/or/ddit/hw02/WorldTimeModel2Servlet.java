@@ -13,6 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.mvc.ViewResolver;
+import kr.or.ddit.mvc.ViewResolverComposite;
 
 /**
  * locale과 timezone이라는 파라미터로 결정된,
@@ -24,6 +26,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/hw02/worldtime")
 public class WorldTimeModel2Servlet extends HttpServlet {
+        private ViewResolver viewResolver = new ViewResolverComposite();
+
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                 // JSR-310 (java.time 패키지) API 활용
@@ -49,7 +53,9 @@ public class WorldTimeModel2Servlet extends HttpServlet {
                 req.setAttribute("now", formatted);
                 req.setAttribute("timezone", zone);
                 req.setAttribute("locale", locale);
-                String view = "/WEB-INF/views/hw02/world-time.jsp";
-                req.getRequestDispatcher(view).forward(req, resp);
+                // String view = "/WEB-INF/views/hw02/world-time.jsp";
+                // req.getRequestDispatcher(view).forward(req, resp);
+
+                viewResolver.resolveViewName("/hw02/world-time", req, resp);
         }
 }

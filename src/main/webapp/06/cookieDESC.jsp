@@ -27,7 +27,7 @@
             padding: 10px;
             border-radius: 5px;
             font-size: 14px;
-            font-family:'D2Coding', 'Noto Sans KR', sans-serif;
+            font-family: 'JetBrains Mono','D2Coding', 'Noto Sans KR', sans-serif;
 
         }
     </style>

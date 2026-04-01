@@ -28,4 +28,14 @@
         <extension>woff2</extension>
         <mime-type>application/x-font-woff2</mime-type>
     </mime-mapping>
+
+    <session-config>
+        <session-timeout>15</session-timeout>
+        <tracking-mode>COOKIE</tracking-mode>
+        <tracking-mode>URL</tracking-mode>
+        <!-- <cookie-config>
+            <name>mySessionId</name>
+            <max-age>1800</max-age>
+        </cookie-config> -->
+    </session-config>
 </web-app>

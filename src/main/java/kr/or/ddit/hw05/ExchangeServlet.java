@@ -22,9 +22,12 @@ import kr.or.ddit.hw05.dto.ExchangeResponseDTO;
 import kr.or.ddit.hw05.service.ExchangeService;
 import kr.or.ddit.hw05.service.GetExchangeRate;
 import kr.or.ddit.hw05.validation.ExchangeValidator;
+import kr.or.ddit.mvc.ViewResolver;
+import kr.or.ddit.mvc.ViewResolverComposite;
 
 @WebServlet("/hw05/exchange")
 public class ExchangeServlet extends HttpServlet {
+    private ViewResolver viewResolver = new ViewResolverComposite();
     private ExchangeService service = new ExchangeService();
     private ExchangeValidator validator = new ExchangeValidator();
     private Gson gson = new Gson();
@@ -52,8 +55,10 @@ public class ExchangeServlet extends HttpServlet {
 
         List<Currency> currencies = service.getConvertibleCurrencies();
         req.setAttribute("currencies", currencies);
-        String view = "/WEB-INF/views/hw05/exchange.jsp";
-        req.getRequestDispatcher(view).forward(req, resp);
+
+        viewResolver.resolveViewName("/hw05/exchange", req, resp);
+        // String view = "/WEB-INF/views/hw05/exchange.jsp";
+        // req.getRequestDispatcher(view).forward(req, resp);
     }
 
     private ExchangeRequestDTO getDTOFromParameters(HttpServletRequest req) {
@@ -144,7 +149,9 @@ public class ExchangeServlet extends HttpServlet {
         // req.getRequestDispatcher(view).forward(req, resp);
 
         req.getSession().setAttribute(MODEL_NAME, responseDTO);
-        String location = req.getContextPath() + "/hw05/exchange";
-        resp.sendRedirect(location);
+
+        viewResolver.resolveViewName("redirect:/hw05/exchange", req, resp);
+        // String location = req.getContextPath() + "/hw05/exchange";
+        // resp.sendRedirect(location);
     }
 }

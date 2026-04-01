@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  select.addEventListener("change", (e) => {
+  select.addEventListener("change", async (e) => {
     const selectedOption = e.target.value;
     const mediaType = e.target.selectedOptions[0].parentElement.id;
     let mediaPath = "";
@@ -41,9 +41,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       img.src = mediaPath;
       viewer.appendChild(img);
     } else if (mediaType === "texts") {
-      const iframe = document.createElement("iframe");
-      iframe.src = mediaPath;
-      viewer.appendChild(iframe);
+      const pre = document.createElement("pre");
+      pre.textContent = await fetch(mediaPath).then((res) => res.text());
+      viewer.appendChild(pre);
     }
   });
 });

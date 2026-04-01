@@ -21,6 +21,14 @@ import kr.or.ddit.hw07.service.GetMediaService;
 @WebServlet("/hw07/media-list.json")
 public class MediaViewerServlet extends HttpServlet {
 
+    /**
+     * 미디어 파일 목록을 JSON 형식으로 반환하는 메서드
+     * 
+     * @param req  HTTP 요청 객체
+     * @param resp HTTP 응답 객체
+     * @throws ServletException 서블릿 처리 중 발생하는 예외
+     * @throws IOException      입출력 처리 중 발생하는 예외
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> imageList = GetMediaService.getImageList();

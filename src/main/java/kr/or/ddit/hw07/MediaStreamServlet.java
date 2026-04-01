@@ -17,9 +17,19 @@ import kr.or.ddit.hw07.service.GetMediaService;
 
 @WebServlet("/hw07/media")
 public class MediaStreamServlet extends HttpServlet {
+
+    /**
+     * 미디어 파일을 스트리밍으로 전송하는 메서드
+     * 
+     * @param req  HTTP 요청 객체
+     * @param resp HTTP 응답 객체
+     * @throws ServletException 서블릿 처리 중 발생하는 예외
+     * @throws IOException      입출력 처리 중 발생하는 예외
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String filename = req.getParameter("file");
+
         if (filename == null || filename.isBlank()) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write("파일 이름이 누락되었습니다.");
@@ -31,6 +41,8 @@ public class MediaStreamServlet extends HttpServlet {
             resp.getWriter().write("파일을 찾을 수 없습니다.");
             return;
         }
+
+        // 비디오 파일인 경우 Range 헤더를 지원하여 스트리밍으로 전송
         if (GetMediaService.getVideoList().contains(filename)) {
             handleVideo(filename, req, resp);
             return;
@@ -49,6 +61,14 @@ public class MediaStreamServlet extends HttpServlet {
         }
     }
 
+    /**
+     * 비디오 파일을 스트리밍으로 전송하는 메서드
+     * 
+     * @param filename 파일 이름
+     * @param req      HTTP 요청 객체
+     * @param resp     HTTP 응답 객체
+     * @throws IOException 파일 처리 중 발생하는 예외
+     */
     private void handleVideo(String filename, HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Path filePath = GetMediaService.getPath(filename);
 

@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import com.google.gson.Gson;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +31,12 @@ import kr.or.ddit.mvc.ViewResolverComposite;
 public class UnitConvertServlet extends HttpServlet {
     private ViewResolver viewResolver = new ViewResolverComposite();
     private final UnitConversionService conversionService = new UnitConversionService();
+
+    @Override
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        // 인증
+        super.service(req, res);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

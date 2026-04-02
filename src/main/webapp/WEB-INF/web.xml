@@ -38,4 +38,37 @@
             <max-age>1800</max-age>
         </cookie-config> -->
     </session-config>
+
+    <!-- <security-role>
+        <role rolename="ROLE_ADMIN"/>
+    </security-role>
+    <security-role>
+         <role rolename="ROLE_USER"/>
+    </security-role> -->
+        
+    <!-- <security-constraint>
+        <web-resource-collection>
+            <url-pattern>/hw04/convert</url-pattern>
+        </web-resource-collection>
+        <auth-constraint> 
+            <role-name>ROLE_USER</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <url-pattern>/hw05/exchange</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ROLE_ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint> -->
+
+    <!-- <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/07/tomcat-login.jsp</form-login-page>
+            <form-error-page>/07/tomcat-error.jsp</form-error-page>
+        </form-login-config>
+    </login-config> -->
 </web-app>

@@ -12,6 +12,8 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +29,12 @@ import kr.or.ddit.mvc.ViewResolverComposite;
 
 @WebServlet("/hw05/exchange")
 public class ExchangeServlet extends HttpServlet {
+    @Override
+    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        // 인증, 검증
+        super.service(req, res);
+    }
+
     private ViewResolver viewResolver = new ViewResolverComposite();
     private ExchangeService service = new ExchangeService();
     private ExchangeValidator validator = new ExchangeValidator();

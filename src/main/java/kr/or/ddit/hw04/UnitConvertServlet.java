@@ -24,6 +24,7 @@ import kr.or.ddit.hw04.dto.ErrorResponse;
 import kr.or.ddit.hw04.exception.UnitConversionException;
 import kr.or.ddit.hw04.service.UnitConversionService;
 import kr.or.ddit.hw04.validation.ConversionValidator;
+import kr.or.ddit.member.dto.MemberDTO;
 import kr.or.ddit.mvc.ViewResolver;
 import kr.or.ddit.mvc.ViewResolverComposite;
 
@@ -33,9 +34,14 @@ public class UnitConvertServlet extends HttpServlet {
     private final UnitConversionService conversionService = new UnitConversionService();
 
     @Override
-    public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-        // 인증
-        super.service(req, res);
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        MemberDTO authMemberDTO = (MemberDTO) session.getAttribute("authMember");
+        if (authMemberDTO != null) {
+            super.service(req, resp);
+        } else {
+            viewResolver.resolveViewName("redirect:/login", req, resp);
+        }
     }
 
     @Override

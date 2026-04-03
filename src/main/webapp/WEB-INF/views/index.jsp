@@ -52,21 +52,21 @@
 
 <hr>
 <h4>임시</h4>
-    <c:if test="${not empty loginUser}">
-        <p>Id: ${memberInfo.memId}</p>
-        <p>Name: ${memberInfo.memName}</p>
-        <p>Role: ${memberInfo.memRoles}</p>
+    <c:if test="${not empty authMember}">
+        <p>Id: ${authMember.memId}</p>
+        <p>Name: ${authMember.memName}</p>
+        <p>Role: ${authMember.memRoles}</p>
 
         <form action="/logout" method="post">
             <button type="submit">Logout</button>
         </form>
-     </c:if>
-     <c:if test="${empty loginUser}">
+    </c:if>
+    <c:if test="${empty authMember}">
         <p>로그인한 사용자가 없습니다.</p>
-     <a href="<c:url value='/login' />" >
-        로그인 페이지
-    </a>
-     </c:if>
+        <a href="<c:url value='/login' />" >
+            로그인 페이지
+        </a>
+    </c:if>
 
 
 

@@ -8,20 +8,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import kr.or.ddit.member.dto.MemberDTO;
 import kr.or.ddit.mvc.ViewResolver;
 import kr.or.ddit.mvc.ViewResolverComposite;
 
 @WebServlet("/logout")
-public class TempLogoutServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
     private ViewResolver viewResolver = new ViewResolverComposite();
 
     // 임시, 삭제예정
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        String loginUser = (String) session.getAttribute("loginUser");
-        if (loginUser != null) {
-            session.removeAttribute("loginUser");
+        MemberDTO authMember = (MemberDTO) session.getAttribute("authMember");
+        if (authMember != null) {
+            session.invalidate();
             viewResolver.resolveViewName("redirect:/index.do", req, resp);
             return;
         } else {

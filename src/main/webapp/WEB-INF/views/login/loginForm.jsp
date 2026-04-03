@@ -61,9 +61,9 @@
         }
     </script>
     
-    <c:if test="${not empty loginUser}">
+    <c:if test="${not empty authMember}">
     <div class="welcome-container">
-        <p>Welcome, ${loginUser}!</p>
+        <p>Welcome, ${authMember}!</p>
         <form action="/logout" method="post">
             <button type="submit">
                 Logout
@@ -71,7 +71,7 @@
         </form>
     </div>
     </c:if>
-    <c:if test="${empty loginUser}">
+    <c:if test="${empty authMember}">
         <fieldset>
             <legend>Login</legend>
             <form action="" method="post" encType="application/x-www-form-urlencoded">

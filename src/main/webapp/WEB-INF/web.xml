@@ -19,7 +19,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <filter>
+    <!-- <filter>
         <filter-name>WorldTimeTrickFilter</filter-name>
         <filter-class>kr.or.ddit.filter.WorldTimeTrickFilter</filter-class>
 
@@ -42,7 +42,7 @@
     <filter-mapping>
         <filter-name>BlindFilter</filter-name>
         <url-pattern>/hw02/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping> -->
 
 
 

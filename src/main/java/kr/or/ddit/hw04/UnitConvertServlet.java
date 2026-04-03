@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 import com.google.gson.Gson;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +22,6 @@ import kr.or.ddit.hw04.dto.ErrorResponse;
 import kr.or.ddit.hw04.exception.UnitConversionException;
 import kr.or.ddit.hw04.service.UnitConversionService;
 import kr.or.ddit.hw04.validation.ConversionValidator;
-import kr.or.ddit.member.dto.MemberDTO;
 import kr.or.ddit.mvc.ViewResolver;
 import kr.or.ddit.mvc.ViewResolverComposite;
 
@@ -32,17 +29,6 @@ import kr.or.ddit.mvc.ViewResolverComposite;
 public class UnitConvertServlet extends HttpServlet {
     private ViewResolver viewResolver = new ViewResolverComposite();
     private final UnitConversionService conversionService = new UnitConversionService();
-
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        MemberDTO authMemberDTO = (MemberDTO) session.getAttribute("authMember");
-        if (authMemberDTO != null) {
-            super.service(req, resp);
-        } else {
-            viewResolver.resolveViewName("redirect:/login", req, resp);
-        }
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

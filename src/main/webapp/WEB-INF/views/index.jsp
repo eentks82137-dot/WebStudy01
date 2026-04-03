@@ -14,14 +14,14 @@
 <h4>웰컴페이지</h4>
 
 <c:if test="${empty pageContext.request.userPrincipal}" >
-    <a href="<c:url value='/07/tomcat-login.jsp' />" target="_blank">
-        로그인
-    </a>
+     <a href="<c:url value='/login' />" >
+            로그인 페이지
+        </a>
 </c:if>
 <c:if test="${not empty pageContext.request.userPrincipal}" >
-    <a href="<c:url value='/07/tomcat-login.jsp' />" target="_blank">
-        ${pageContext.request.userPrincipal.name}
-    </a>
+    <form action="/logout" method="post">
+            <button type="submit">Logout</button>
+        </form>
 </c:if>
 
     <ul>
@@ -51,24 +51,6 @@
     </ul>
 
 <hr>
-<h4>임시</h4>
-    <c:if test="${not empty authMember}">
-        <p>Id: ${authMember.memId}</p>
-        <p>Name: ${authMember.memName}</p>
-        <p>Role: ${authMember.memRoles}</p>
-
-        <form action="/logout" method="post">
-            <button type="submit">Logout</button>
-        </form>
-    </c:if>
-    <c:if test="${empty authMember}">
-        <p>로그인한 사용자가 없습니다.</p>
-        <a href="<c:url value='/login' />" >
-            로그인 페이지
-        </a>
-    </c:if>
-
-
 
 
 </body>

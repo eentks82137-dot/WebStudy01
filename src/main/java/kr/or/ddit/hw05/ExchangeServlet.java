@@ -22,27 +22,11 @@ import kr.or.ddit.hw05.dto.ExchangeResponseDTO;
 import kr.or.ddit.hw05.service.ExchangeService;
 import kr.or.ddit.hw05.service.GetExchangeRate;
 import kr.or.ddit.hw05.validation.ExchangeValidator;
-import kr.or.ddit.member.dto.MemberDTO;
 import kr.or.ddit.mvc.ViewResolver;
 import kr.or.ddit.mvc.ViewResolverComposite;
 
 @WebServlet("/hw05/exchange")
 public class ExchangeServlet extends HttpServlet {
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        MemberDTO authMemberDTO = (MemberDTO) session.getAttribute("authMember");
-        if (authMemberDTO != null) {
-            if (authMemberDTO.getMemRoles().contains("ROLE_ADMIN")) {
-
-                super.service(req, resp);
-            } else {
-                resp.sendError(HttpServletResponse.SC_FORBIDDEN);
-            }
-        } else {
-            viewResolver.resolveViewName("redirect:/login", req, resp);
-        }
-    }
 
     private ViewResolver viewResolver = new ViewResolverComposite();
     private ExchangeService service = new ExchangeService();

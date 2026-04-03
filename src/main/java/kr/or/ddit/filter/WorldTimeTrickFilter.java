@@ -7,13 +7,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.filter.wrapper.LocaleParameterTrickRequestWrapper;
 
-public class Dummy2Filter extends HttpFilter {
+public class WorldTimeTrickFilter extends HttpFilter {
+
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println("Dummy 2 Filter Begin");
-        chain.doFilter(req, res);
-        System.out.println("Dummy 2 Filter End");
+        LocaleParameterTrickRequestWrapper wrapper = new LocaleParameterTrickRequestWrapper(req);
+        chain.doFilter(wrapper, res);
     }
 }

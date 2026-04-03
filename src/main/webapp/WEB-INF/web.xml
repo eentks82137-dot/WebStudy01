@@ -4,22 +4,46 @@
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
     version="6.0">
 
+
     <filter>
-        <filter-name>Dummy1Filter</filter-name>
-        <filter-class>kr.or.ddit.filter.Dummy1Filter</filter-class>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>kr.or.ddit.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
     </filter>
+
     <filter-mapping>
-        <filter-name>Dummy1Filter</filter-name>
+        <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
     <filter>
-        <filter-name>Dummy2Filter</filter-name>
-        <filter-class>kr.or.ddit.filter.Dummy2Filter</filter-class>
+        <filter-name>WorldTimeTrickFilter</filter-name>
+        <filter-class>kr.or.ddit.filter.WorldTimeTrickFilter</filter-class>
+
     </filter>
+
     <filter-mapping>
-        <filter-name>Dummy2Filter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <filter-name>WorldTimeTrickFilter</filter-name>
+        <url-pattern>/hw02/*</url-pattern>
     </filter-mapping>
+
+    <filter>
+        <filter-name>BlindFilter</filter-name>
+        <filter-class>kr.or.ddit.filter.BlindFilter</filter-class>
+        <init-param>
+            <param-name>whitelist</param-name>
+            <param-value>192.168.145.44,127.0.0.1,0:0:0:0:0:0:0:1</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>BlindFilter</filter-name>
+        <url-pattern>/hw02/*</url-pattern>
+    </filter-mapping>
+
 
 
     <servlet>

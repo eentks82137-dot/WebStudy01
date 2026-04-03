@@ -169,7 +169,6 @@ public class CalculatorServlet extends HttpServlet {
     private void handleJsonResponse(HttpServletRequest req, HttpServletResponse resp, CalcResponseDTO respDTO)
             throws IOException {
         resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
 
         Gson gson = new Gson();
         String jsonResponse = gson.toJson(respDTO);
@@ -192,7 +191,6 @@ public class CalculatorServlet extends HttpServlet {
 
         if (accept.contains("json")) {
             resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
             Gson gson = new Gson();
             String jsonResponse = gson.toJson(Collections.singletonMap("error", errorMessage));
             resp.getWriter().write(jsonResponse);

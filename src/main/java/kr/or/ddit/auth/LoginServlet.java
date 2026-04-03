@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         // 1. Character Encoding Filter에서 인코딩 처리 -> 특수 문자 깨짐 방지
-        req.setCharacterEncoding("UTF-8");
+        // -> filter에서 처리
 
         // 2. 파라미터 수신
         String username = req.getParameter("username");

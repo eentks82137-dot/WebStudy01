@@ -152,7 +152,6 @@ public class ExchangeServlet extends HttpServlet {
 
     private void handleJson(Object nativeTarget, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
         try (PrintWriter writer = resp.getWriter()) {
             gson.toJson(nativeTarget, writer);
         }

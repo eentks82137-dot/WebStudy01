@@ -24,7 +24,6 @@ public class StateCreateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
         // 1. request nickname : 요청에 저장된 %s
         // 2. session nickname : 세션에 저장된 %s
         // 3. cookie nickname : 쿠키에 저장된 %s, 최대 7일 동안 유지

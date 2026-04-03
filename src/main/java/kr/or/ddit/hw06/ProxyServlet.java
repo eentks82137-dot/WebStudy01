@@ -41,7 +41,6 @@ public class ProxyServlet extends HttpServlet {
             html = html.replace("</head>",
                     "<link rel=\"stylesheet\" href=\"" + cssHref + "\"></head>");
 
-            resp.setCharacterEncoding("UTF-8");
             resp.setContentType("text/html; charset=UTF-8");
             try (PrintWriter out = resp.getWriter()) {
                 out.print(html);

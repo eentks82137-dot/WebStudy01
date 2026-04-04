@@ -23,6 +23,8 @@ public class AuthorizationFilter extends HttpFilter {
         securedResources = new LinkedHashMap<>();
         securedResources.put("/hw04/convert", List.of("ROLE_USER", "ROLE_ADMIN"));
         securedResources.put("/hw05/exchange", List.of("ROLE_ADMIN"));
+        securedResources.put("/admin/allMembers", List.of("ROLE_ADMIN"));
+        securedResources.put("/admin/*", List.of("ROLE_ADMIN")); // 로직 수정 필요
 
     }
 

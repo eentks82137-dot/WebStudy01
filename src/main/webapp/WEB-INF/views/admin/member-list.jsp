@@ -31,6 +31,33 @@
         </tbody>
     </table>
 
+    <div id="csr">
+    
+    
+    </div>
 
+
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+    const response = await fetch("/admin/allMembers", {
+        headers: {
+            "Accept": "application/json"
+        }
+    });
+    if (response.ok) {
+        const data = await response.json();
+        const csrDiv = document.getElementById("csr");
+        const pre = document.createElement("pre");
+        pre.textContent = JSON.stringify(data, null, 2);
+        csrDiv.appendChild(pre);
+    } else {
+        console.error("에러가 발생했습니다. 상태 코드:", response.status);
+    }
+});
+
+
+
+</script>
 </body>
 </html>

@@ -1,7 +1,12 @@
 package kr.or.ddit.admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
+
+import com.google.gson.Gson;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,10 +26,25 @@ public class GetAllMembersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<MemberDTO> memberDTOs = adminMemberService.getAllMembers();
-        req.setAttribute("memberList", memberDTOs);
-        String lvn = "/admin/member-list";
-        resolver.resolveViewName(lvn, req, resp);
+        String accept = req.getHeader("Accept");
+        if (accept == null)
+            accept = "text/html"; // 기본값 설정
 
+        List<MemberDTO> memberDTOs = adminMemberService.getAllMembers();
+
+        if (accept.contains("text/html")) {
+            req.setAttribute("memberList", memberDTOs);
+            String lvn = "/admin/member-list";
+            resolver.resolveViewName(lvn, req, resp);
+        } else if (accept.contains("application/json")) {
+            resp.setContentType("application/json;charset=UTF-8");
+            try (PrintWriter out = resp.getWriter()) {
+                Gson gson = new Gson();
+                String json = gson.toJson(memberDTOs);
+                out.print(json);
+            }
+        } else {
+            resp.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE, "지원하지 않는 Accept 타입입니다. " + accept);
+        }
     }
 }

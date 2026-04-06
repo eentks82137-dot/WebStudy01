@@ -50,6 +50,8 @@ public class AuthorizationFilter extends HttpFilter {
         if (pass) {
             chain.doFilter(req, res);
         } else if (!isAuthenticated) {
+            // 로그인이 필요할 경우, 접근하고자 했던 URI를 쿼리스트링으로 전달하여 로그인 후 리다이렉트할 수 있도록 처리
+            req.getSession().setAttribute("redirectAfterLogin", requestURI);
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
             res.sendError(403, "권한 없음");

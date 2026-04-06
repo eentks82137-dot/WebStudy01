@@ -80,18 +80,6 @@
     </filter-mapping>
 
 
-    <!-- Authorization Filter / 보호 자원 -->
-    <filter>
-        <filter-name>AuthorizationFilter</filter-name>
-        <filter-class>kr.or.ddit.auth.filter.AuthorizationFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>AuthorizationFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-
     <!-- 보호 자원 로그 필터 -->
     <filter>
         <filter-name>AccessLoggingFilter</filter-name>
@@ -101,6 +89,18 @@
     <filter-mapping>
         <filter-name>AccessLoggingFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+
+    <!-- Authorization Filter / 보호 자원 -->
+    <filter>
+        <filter-name>AuthorizationFilter</filter-name>
+        <filter-class>kr.or.ddit.auth.filter.AuthorizationFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
 

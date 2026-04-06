@@ -42,6 +42,7 @@ public class UsernamePasswordAuthenticationFilter extends HttpFilter {
         if (isLoginRequest(req)) {
             HttpSession session = req.getSession(false);
             String lvn = null;
+            String redirectAfterLogin = (session != null) ? (String) session.getAttribute("redirectAfterLogin") : null;
 
             if (session == null || session.isNew()) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -86,6 +87,12 @@ public class UsernamePasswordAuthenticationFilter extends HttpFilter {
             // 임시로 session에 로그인 여부 추가
             session.setAttribute("authMember", memberDTO);
             lvn = loginSuccessUrl;
+            // 로그인 성공 후, 원래 접근하려 했던 URI가 있다면 그쪽으로 리다이렉트
+            if (StringUtils.isNotBlank(redirectAfterLogin)) {
+                lvn = redirectAfterLogin;
+                session.removeAttribute("redirectAfterLogin");
+            }
+
             resp.sendRedirect(req.getContextPath() + lvn);
 
         } else {

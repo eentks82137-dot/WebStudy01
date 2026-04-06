@@ -19,6 +19,18 @@
         </a>
 </c:if>
 <c:if test="${not empty pageContext.request.userPrincipal}" >
+
+        <span>
+            ${pageContext.request.userPrincipal.name}님 환영합니다.
+        </span>
+        <br>
+        <span>
+            roles:
+            <c:forEach var="role" items="${pageContext.request.userPrincipal.authorities}">
+                <li>${role}</li>
+            </c:forEach>
+        </span>
+
     <form action="/logout" method="post">
             <button type="submit">Logout</button>
         </form>

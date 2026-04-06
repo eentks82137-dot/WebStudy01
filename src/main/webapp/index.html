@@ -15,10 +15,24 @@
         <img src="./resources/images/icon_1.gif" alt="Icon" />
       </div>
       <header class="header">
-        <h1>List</h1>
-        <a href="/index.do">
-          <span class="home-link">Home</span>
-        </a>
+        <div class="header-left">
+          <div class="logo-group">
+            <span class="logo-icon">🚀</span>
+            <h1>Index</h1>
+          </div>
+          <a href="/index.do" class="home-link">Home</a>
+        </div>
+
+        <div class="login-info">
+          <div class="user-details">
+            <span class="memId"></span>
+            <span class="memName"></span>
+            <div class="memRoles">
+              <ul class="memRolesList"></ul>
+            </div>
+          </div>
+          <a href="/login" class="login-link">Login</a>
+        </div>
       </header>
       <div id="link-div"></div>
     </div>
@@ -102,7 +116,7 @@
         },
       ];
 
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", async () => {
         const container = document.getElementById("link-div");
 
         list.reverse().forEach((item) => {
@@ -114,7 +128,7 @@
 
           link.innerHTML = `
             <span class="link-name">
-              ${item.name} 
+              ${item.name}
               <span class="link-desc">${item.desc || ""}</span>
               <span class="link-desc">${item.date || ""}</span>
 
@@ -124,6 +138,38 @@
 
           container.appendChild(link);
         });
+
+        const response = await fetch("http://localhost:8080/loginInfo");
+        const loginInfo = await response.json();
+        if (response.status !== 200) {
+          console.error("로그인 정보 조회 실패:", loginInfo);
+          return;
+        }
+        const loginLink = document.querySelector(".login-link");
+        if (loginInfo.memId) {
+          loginLink.textContent = "Logout";
+          loginLink.href = "/logout";
+        } else {
+          loginLink.textContent = "Login";
+          loginLink.href = "/login";
+        }
+        const { memId, memName, memRoles } = loginInfo;
+        document.querySelector(".memId").textContent = memId
+          ? `ID: ${memId}`
+          : "";
+        document.querySelector(".memName").textContent = memName
+          ? `Name: ${memName}`
+          : "";
+        const rolesList = document.querySelector(".memRolesList");
+        if (memRoles && memRoles.length > 0) {
+          memRoles.forEach((role) => {
+            const li = document.createElement("li");
+            li.textContent = role;
+            rolesList.appendChild(li);
+          });
+        } else {
+          document.querySelector(".memRoles").style.display = "none";
+        }
       });
     </script>
   </body>

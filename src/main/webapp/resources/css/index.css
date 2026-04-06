@@ -7,15 +7,6 @@
   --hover-bg: #f1f2f6;
 }
 
-.header h1 {
-  font-family: "Noto Sans KR", sans-serif;
-}
-
-.header {
-  display: flex;
-  gap: 10px;
-}
-
 body {
   background-color: var(--bg-color);
   font-family: "Nanum Gothic", sans-serif;
@@ -43,17 +34,7 @@ body {
 header {
   border-bottom: 2px solid var(--primary-color);
   margin-bottom: 20px;
-  padding-bottom: 10px;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: var(--primary-color);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: "Noto Sans KR", sans-serif;
+  padding-bottom: 14px;
 }
 
 /* header h1::before {
@@ -125,4 +106,128 @@ header h1 {
 #imageDiv img {
   width: auto;
   height: 80px;
+}
+/* Header Container 개선 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border: none; /* 선 제거 */
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px); /* 배경 흐림 효과 */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  position: sticky;
+  top: 10px;
+  z-index: 100;
+}
+
+/* 로고 및 왼쪽 섹션 */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  font-size: 1.5rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
+}
+
+/* Home 버튼 세련되게 수정 */
+.home-link {
+  padding: 6px 16px;
+  background: #f1f3f5;
+  color: #495057;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: none;
+}
+
+.home-link:hover {
+  background: #e9ecef;
+  transform: translateY(-1px);
+}
+
+/* 사용자 정보 영역 */
+.login-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.memId,
+.memName {
+  background: #f8f9fa;
+  border: 1px solid #eee;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  color: #343a40;
+}
+
+/* 로그인/로그아웃 버튼 강조 */
+.login-link {
+  height: auto;
+  padding: 8px 20px;
+  border-radius: 12px;
+  background: #2ecc71; /* 메인 컬러 사용 */
+  color: white !important;
+  border: none;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.login-link:hover {
+  background: #27ae60;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+  transform: translateY(-2px);
+}
+
+/* 역할 태그(Role) 스타일링 */
+.memRolesList li {
+  background-color: #e7f5ff;
+  border: none;
+  color: #228be6;
+  font-size: 0.75rem;
+  padding: 2px 10px;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .login-info {
+    width: 100%;
+    justify-content: space-between;
+    border-top: 1px solid #f1f3f5;
+    padding-top: 15px;
+  }
 }

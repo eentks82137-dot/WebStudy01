@@ -96,6 +96,10 @@
     <filter>
         <filter-name>AuthorizationFilter</filter-name>
         <filter-class>kr.or.ddit.auth.filter.AuthorizationFilter</filter-class>
+        <init-param>
+            <param-name>location</param-name>
+            <param-value>kr.or.ddit.SecuredResources</param-value>
+        </init-param>
     </filter>
 
     <filter-mapping>

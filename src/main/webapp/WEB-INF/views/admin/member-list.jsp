@@ -36,6 +36,16 @@
     
     </div>
 
+<div>
+    <c:if test="${not empty recentLogs}">
+        <h2>Recent Admin Logs</h2>
+        <pre style="background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc; white-space: pre-wrap; word-wrap: break-word; width: 100%; max-width: 800px; margin-top: 20px; font-size: 11px; line-height: 1.5;">
+            <c:forEach var="log" items="${recentLogs}">
+${log}
+            </c:forEach>
+        </pre>
+    </c:if>
+</div>
 
 
 <script>

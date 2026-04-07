@@ -52,14 +52,12 @@
     </style>
 </head>
 <body>
-
-    <script>
-        const message = "${message}";
-
-        if (message) {
-            alert(message);
-        }
-    </script>
+    <c:if test="${not empty SECURITY_LAST_EXCEPTION}">
+        <script>
+            alert("${SECURITY_LAST_EXCEPTION.message}");
+        </script>
+    <c:remove var="SECURITY_LAST_EXCEPTION" scope="session" />
+    </c:if>
     
     <c:if test="${not empty authMember}">
     <div class="welcome-container">

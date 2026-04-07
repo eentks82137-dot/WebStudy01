@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import kr.or.ddit.auth.exception.AuthenticationException;
+import kr.or.ddit.auth.exception.UsernameNotFoundException;
 import kr.or.ddit.auth.service.AuthenticateService;
 import kr.or.ddit.member.dto.MemberDTO;
 
@@ -71,15 +73,14 @@ public class UsernamePasswordAuthenticationFilter extends HttpFilter {
                 resp.sendRedirect(req.getContextPath() + lvn);
                 return;
             }
-
-            // 4. 인증 (AuthenticateService 의존관계)
-            MemberDTO memberDTO = authenticateService.authenticate(username, password);
-
-            // 5. 인증 성공 -> welcome 페이지 redirect
-            // 인증 실패 -> 로그인 폼으로 redirect, 인증 실패 이유 message
-            if (memberDTO == null) {
+            MemberDTO memberDTO;
+            try {
+                // 4. 인증 (AuthenticateService 의존관계)
+                memberDTO = authenticateService.authenticate(username, password);
+            } catch (AuthenticationException e) {
+                // 인증 실패 -> 로그인 폼으로 redirect, 인증 실패 이유 message
                 lvn = loginFailureUrl;
-                session.setAttribute("message", "Id 또는 Password 불일치");
+                session.setAttribute("SECURITY_LAST_EXCEPTION", e);
                 resp.sendRedirect(req.getContextPath() + lvn);
                 return;
             }

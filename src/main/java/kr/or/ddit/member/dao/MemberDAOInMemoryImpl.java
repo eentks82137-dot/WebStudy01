@@ -15,6 +15,11 @@ public class MemberDAOInMemoryImpl implements MemberDAO {
                 .memRoles(List.of("ROLE_ADMIN", "ROLE_USER")).build());
         memberTable.put("b001", MemberDTO.builder().memId("b001").memPass("java").memName("대식이")
                 .memRoles(List.of("ROLE_USER")).build());
+        memberTable.put("c001", MemberDTO.builder().memId("c001").memPass("java").memName("춘삼이")
+                .memRoles(List.of("ROLE_USER")).build());
+        memberTable.put("d001", MemberDTO.builder().memId("d001").memPass("java").memName("영식이")
+                .memRoles(List.of("ROLE_USER")).build());
+
     }
 
     @Override

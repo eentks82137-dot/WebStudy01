@@ -2,9 +2,12 @@ package kr.or.ddit.auth.filter;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -12,6 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kr.or.ddit.auth.exception.SecuredResourceNotFoundException;
 
 public class AuthorizationFilter extends HttpFilter {
     private Map<String, List<String>> securedResources;
@@ -19,13 +23,28 @@ public class AuthorizationFilter extends HttpFilter {
     @Override
     public void init(FilterConfig config) throws ServletException {
         super.init(config);
+        String location = config.getInitParameter("location");
+        securedResources = generateSecuredResources(location);
 
-        securedResources = new LinkedHashMap<>();
-        securedResources.put("/hw04/convert", List.of("ROLE_USER", "ROLE_ADMIN"));
-        securedResources.put("/hw05/exchange", List.of("ROLE_ADMIN"));
-        securedResources.put("/admin/allMembers", List.of("ROLE_ADMIN"));
-        securedResources.put("/admin/*", List.of("ROLE_ADMIN")); // 로직 수정 필요
+    }
 
+    private Map<String, List<String>> generateSecuredResources(String location) {
+        String baseName = location;
+        if (location == null) {
+            throw new SecuredResourceNotFoundException();
+        }
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(baseName);
+        Enumeration<String> keys = resourceBundle.getKeys();
+        Map<String, List<String>> securedResources = new LinkedHashMap<>();
+        while (keys.hasMoreElements()) {
+            String code = (String) keys.nextElement();
+            String message = resourceBundle.getString(code);
+
+            List<String> roles = Arrays.asList(message.toString().split(","));
+            System.out.println("URL: %s | ROLES : %s".formatted(code, roles.toString()));
+            securedResources.put(code, roles);
+        }
+        return securedResources;
     }
 
     @Override

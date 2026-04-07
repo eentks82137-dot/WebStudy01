@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,15 @@
 <a href="/">index.html</a>
 </div>
 <h4>웰컴페이지</h4>
+<a href="?lang=ko">한국어</a>
+<a href="?lang=en">영어</a>
+<fmt:setLocale value="${param.lang}" />
+<fmt:setBundle basename="kr.or.ddit.Messages"/>
+<h1>
+<fmt:message key="hi" />
+</h1>
+
+
 
 <c:if test="${empty pageContext.request.userPrincipal}" >
      <a href="<c:url value='/login' />" >

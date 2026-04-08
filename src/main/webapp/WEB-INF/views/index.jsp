@@ -33,6 +33,8 @@
         <span>
             ${pageContext.request.userPrincipal.name}님 환영합니다.
         </span>
+
+        ${pageContext.request.userPrincipal}
         <br>
         <span>
             roles:
@@ -52,7 +54,6 @@
                 href="${pageContext.request.contextPath}/hw02/worldtime">공용 세계시간</a>
         </li>
 
-        
         <c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
             <li>
                 <a  target="_blank"

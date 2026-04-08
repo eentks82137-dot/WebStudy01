@@ -4,7 +4,7 @@ import kr.or.ddit.auth.exception.AuthenticationException;
 import kr.or.ddit.auth.exception.BadCredentialsException;
 import kr.or.ddit.auth.exception.UsernameNotFoundException;
 import kr.or.ddit.member.dao.MemberDAO;
-import kr.or.ddit.member.dao.MemberDAOInMemoryImpl;
+import kr.or.ddit.member.dao.MemberDAOImpl;
 import kr.or.ddit.member.dto.MemberDTO;
 
 /**
@@ -12,7 +12,7 @@ import kr.or.ddit.member.dto.MemberDTO;
  */
 
 public class AuthenticateService {
-    private MemberDAO memberDAO = new MemberDAOInMemoryImpl();
+    private MemberDAO memberDAO = new MemberDAOImpl();
 
     /**
      * 사용자의 아이디와 비밀번호를 이용하여 사용자를 인증하는 메서드

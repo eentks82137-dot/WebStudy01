@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,8 +36,15 @@ public class JdbcCodeTest {
     }
 
     @BeforeEach
-    void beforeEach() {
+    void setUp() {
         System.out.println("======================= Before Each =======================");
+        System.out.println("Test Data Setup...");
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.out.println("======================= After Each =======================");
+        System.out.println("Test Data Cleanup...");
     }
 
     @Test

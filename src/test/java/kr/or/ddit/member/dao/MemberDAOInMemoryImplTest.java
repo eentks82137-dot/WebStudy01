@@ -9,7 +9,7 @@ import kr.or.ddit.member.dto.MemberDTO;
 public class MemberDAOInMemoryImplTest {
     @Test
     void testSelectAllMembers() {
-        List<MemberDTO> memberDTOs = new MemberDAOInMemoryImpl().selectAllMembers();
+        List<MemberDTO> memberDTOs = new MemberDAOInMemoryImpl().selectMemberList();
 
         memberDTOs.stream().forEach(System.out::println);
     }

@@ -17,5 +17,5 @@ public interface MemberDAO {
      */
     MemberDTO selectMember(String username);
 
-    List<MemberDTO> selectAllMembers();
+    List<MemberDTO> selectMemberList();
 }

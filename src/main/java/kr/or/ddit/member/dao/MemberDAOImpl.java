@@ -9,11 +9,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.function.Failable;
 
-import kr.or.ddit.db.ConnectionFactory;
+import kr.or.ddit.db.template.JdbcTemplate;
 import kr.or.ddit.member.dto.MemberDTO;
 
 public class MemberDAOImpl implements MemberDAO {
+    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+
     @Override
     public MemberDTO selectMember(String username) {
         String sql = """
@@ -26,29 +29,29 @@ public class MemberDAOImpl implements MemberDAO {
                 on ( m.mem_id = mr.mem_id )
                  where m.mem_id = ?
                 """;
-        MemberDTO memberDTO = null;
-        try (Connection conn = ConnectionFactory.createConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+        List<MemberDTO> list = jdbcTemplate.queryForList(sql, Failable.asConsumer(pstmt -> {
             pstmt.setString(1, username);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    String role_name = rs.getString("role_name");
-                    if (memberDTO == null) {
-                        memberDTO = MemberDTO.builder()
-                                .memId(rs.getString("mem_id"))
-                                .memName(rs.getString("mem_name"))
-                                .memPass(rs.getString("mem_pass"))
-                                .memRoles(new ArrayList<>())
-                                .build();
-                    }
-                    if (StringUtils.isNotBlank(role_name)) {
-                        memberDTO.getMemRoles().add(role_name);
-                    }
-                }
-                return memberDTO;
+        }), Failable.asFunction(rs -> {
+            String role_name = rs.getString("role_name");
+            MemberDTO memberDTO = MemberDTO.builder()
+                    .memId(rs.getString("mem_id"))
+                    .memName(rs.getString("mem_name"))
+                    .memPass(rs.getString("mem_pass"))
+                    .memRoles(new ArrayList<>())
+                    .build();
+            if (StringUtils.isNotBlank(role_name)) {
+                memberDTO.getMemRoles().add(role_name);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException();
+            return memberDTO;
+        }));
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            // 하나의 member dto를 만들고 그 안에 role name들을 병합시키기
+            List<String> memRoles = list.stream().flatMap(mDto -> mDto.getMemRoles().stream()).toList();
+            MemberDTO one = list.getFirst();
+            one.setMemRoles(memRoles);
+            return one;
         }
     }
 
@@ -57,29 +60,42 @@ public class MemberDAOImpl implements MemberDAO {
                 select mem_id, mem_name, mem_pass
                 from member where mem_id = ? and mem_pass = ?
                 """;
-        try (Connection conn = ConnectionFactory.createConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+        return jdbcTemplate.queryForObject(sql, Failable.asConsumer(pstmt -> {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    return MemberDTO.builder()
-                            .memId(rs.getString("mem_id"))
-                            .memName(rs.getString("mem_name"))
-                            .memPass(rs.getString("mem_pass"))
-                            .memRoles(Collections.emptyList())
-                            .build();
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        }
-        return null;
+        }), Failable.asFunction(rs -> {
+            return MemberDTO.builder()
+                    .memId(rs.getString("mem_id"))
+                    .memName(rs.getString("mem_name"))
+                    .memPass(rs.getString("mem_pass"))
+                    .memRoles(Collections.emptyList())
+                    .build();
+        }));
     }
 
     @Override
-    public List<MemberDTO> selectAllMembers() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<MemberDTO> selectMemberList() {
+        String sql = """
+                select m.mem_id,
+                       mem_name ,
+                       mem_pass ,
+                       mr.role_name
+                  from member m
+                  left outer join member_role mr
+                on ( m.mem_id = mr.mem_id )
+                """;
+        return jdbcTemplate.queryForList(sql, null, Failable.asFunction(rs -> {
+            String role_name = rs.getString("role_name");
+            MemberDTO memberDTO = MemberDTO.builder()
+                    .memId(rs.getString("mem_id"))
+                    .memName(rs.getString("mem_name"))
+                    .memPass(rs.getString("mem_pass"))
+                    .memRoles(new ArrayList<>())
+                    .build();
+            if (StringUtils.isNotBlank(role_name)) {
+                memberDTO.getMemRoles().add(role_name);
+            }
+            return memberDTO;
+        }));
     }
 }

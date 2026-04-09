@@ -1,6 +1,5 @@
 package kr.or.ddit.member.dao;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -25,12 +24,17 @@ public class MemberDAOImplTest {
 
     @Test
     void testSelectMember() {
-        MemberDTO memberDTO = dao.selectMember("a001");
+        MemberDTO memberDTO = dao.selectMember("b001");
         System.out.println(memberDTO);
         assertNotNull(memberDTO);
         memberDTO = dao.selectMember("a001123123123123");
         assertNull(memberDTO);
         System.out.println(memberDTO);
 
+    }
+
+    @Test
+    void testSelectMemberList() {
+        dao.selectMemberList().forEach(System.out::println);
     }
 }

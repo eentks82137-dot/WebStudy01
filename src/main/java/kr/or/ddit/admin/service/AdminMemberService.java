@@ -8,7 +8,7 @@ import kr.or.ddit.member.dto.MemberDTO;
 public class AdminMemberService {
 
     public List<MemberDTO> getAllMembers() {
-        return new MemberDAOInMemoryImpl().selectAllMembers();
+        return new MemberDAOInMemoryImpl().selectMemberList();
     }
 
 }

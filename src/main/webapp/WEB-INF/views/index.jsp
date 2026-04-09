@@ -60,6 +60,10 @@
                     href="<c:url value='/hw05/exchange'/>">
                     관리자용 환전서비스
                 </a>
+                <a  target="_blank"
+                href="<c:url value='/admin/memberList'/>">
+                    관리자용 회원목록
+                </a>
             </li>
         </c:if>
 

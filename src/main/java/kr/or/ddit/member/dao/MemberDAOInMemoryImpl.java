@@ -28,7 +28,7 @@ public class MemberDAOInMemoryImpl implements MemberDAO {
     }
 
     @Override
-    public List<MemberDTO> selectAllMembers() {
+    public List<MemberDTO> selectMemberList() {
         return memberTable.values().stream().toList();
     }
 }

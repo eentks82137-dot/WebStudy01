@@ -14,7 +14,7 @@ import kr.or.ddit.hw05.dto.ExchangeResponseDTO;
 public class ExchangeServiceTest {
     ExchangeService service = new ExchangeService();
 
-    @Test
+    // @Test // 실제 환율 API를 호출하기 때문에 테스트에서 제외
     void testExchange() {
         ExchangeRequestDTO requestDTO = new ExchangeRequestDTO(1, Currency.getInstance("USD"),
                 Currency.getInstance("KRW"));

@@ -1,9 +1,5 @@
 package kr.or.ddit.member.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -96,6 +92,19 @@ public class MemberDAOImpl implements MemberDAO {
                 memberDTO.getMemRoles().add(role_name);
             }
             return memberDTO;
+        }));
+    }
+
+    @Override
+    public void updateMember(MemberDTO memberDTO) {
+        String sql = """
+                update member
+                set mem_pass = ?
+                where mem_id = ?
+                """;
+        jdbcTemplate.update(sql, Failable.asConsumer(pstmt -> {
+            pstmt.setString(1, memberDTO.getMemPass());
+            pstmt.setString(2, memberDTO.getMemId());
         }));
     }
 }

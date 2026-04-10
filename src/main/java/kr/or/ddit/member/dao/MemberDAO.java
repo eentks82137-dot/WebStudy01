@@ -18,4 +18,6 @@ public interface MemberDAO {
     MemberDTO selectMember(String username);
 
     List<MemberDTO> selectMemberList();
+
+    void updateMember(MemberDTO memberDTO);
 }

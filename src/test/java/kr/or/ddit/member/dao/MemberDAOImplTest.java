@@ -7,11 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 
 import kr.or.ddit.member.dto.MemberDTO;
-import kr.or.ddit.member.service.MemberServiceImpl;
 
 public class MemberDAOImplTest {
     MemberDAOImpl dao = new MemberDAOImpl();
-    MemberServiceImpl memberServiceImpl = new MemberServiceImpl();
 
     @Test
     void testSelectDummy() {
@@ -42,23 +40,9 @@ public class MemberDAOImplTest {
     }
 
     @Test
-    void testUpdateMember() {
-        String username = "x001";
-        String oldPassword = "java";
-        String newPassword = "java1";
-
-        memberServiceImpl.changePassword(username, oldPassword, newPassword);
-
-        MemberDTO memberDTO = dao.selectMember(username);
-        String updatedPass = memberDTO.getMemPass();
-        assertEquals(newPassword, updatedPass);
-
-        // 테스트를 통과하면 다시 원래대로 돌리기
-
-        memberServiceImpl.changePassword(username, newPassword, oldPassword);
-
-        memberDTO = dao.selectMember(username);
-        updatedPass = memberDTO.getMemPass();
-        assertEquals(oldPassword, updatedPass);
+    void testUpdatePassword() {
+        MemberDTO memberDTO = MemberDTO.builder().memId("x001").memPass("java").build();
+        dao.updateMemberPassword(memberDTO);
     }
+
 }

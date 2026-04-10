@@ -28,7 +28,7 @@ public class AuthenticateService {
             throw new UsernameNotFoundException(username);
         }
 
-        if (password.equals(member.getMemPass())) {
+        if (password != null && password.equals(member.getMemPass())) {
             return member;
         } else {
             throw new BadCredentialsException();

@@ -96,7 +96,7 @@ public class MemberDAOImpl implements MemberDAO {
     }
 
     @Override
-    public void updateMember(MemberDTO memberDTO) {
+    public void updateMemberPassword(MemberDTO memberDTO) {
         String sql = """
                 update member
                 set mem_pass = ?
@@ -106,5 +106,11 @@ public class MemberDAOImpl implements MemberDAO {
             pstmt.setString(1, memberDTO.getMemPass());
             pstmt.setString(2, memberDTO.getMemId());
         }));
+    }
+
+    @Override
+    public int updatePassword(String username, String password) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updatePassword'");
     }
 }

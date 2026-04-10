@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import kr.or.ddit.db.ConnectionFactory;
+import kr.or.ddit.db.ConnectionFactoryWithPooling;
 
 public class JdbcTemplate {
     public final int update(String sql,
             Consumer<PreparedStatement> parameterMapper) {
 
         // 2. Connection 생성
-        try (Connection conn = ConnectionFactory.createConnection();
+        try (Connection conn = ConnectionFactoryWithPooling.createConnection();
                 // 3. 쿼리 객체 생성
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
             // 4. 쿼리 파라미터 설정 *
@@ -47,7 +47,7 @@ public class JdbcTemplate {
         // 1. 쿼리 작성 *
         List<T> list = new ArrayList<>();
         // 2. Connection 생성
-        try (Connection conn = ConnectionFactory.createConnection();
+        try (Connection conn = ConnectionFactoryWithPooling.createConnection();
                 // 3. 쿼리 객체 생성
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
             // 4. 쿼리 파라미터 설정 *

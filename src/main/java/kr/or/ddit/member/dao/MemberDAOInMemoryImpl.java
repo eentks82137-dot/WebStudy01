@@ -33,7 +33,12 @@ public class MemberDAOInMemoryImpl implements MemberDAO {
     }
 
     @Override
-    public void updateMember(MemberDTO memberDTO) {
+    public void updateMemberPassword(MemberDTO memberDTO) {
 
+    }
+
+    @Override
+    public int updatePassword(String username, String password) {
+        throw new UnsupportedOperationException("Unimplemented method 'updatePassword'");
     }
 }

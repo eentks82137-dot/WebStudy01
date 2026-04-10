@@ -19,5 +19,7 @@ public interface MemberDAO {
 
     List<MemberDTO> selectMemberList();
 
-    void updateMember(MemberDTO memberDTO);
+    void updateMemberPassword(MemberDTO memberDTO);
+
+    int updatePassword(String username, String password);
 }

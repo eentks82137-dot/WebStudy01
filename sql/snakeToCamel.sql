@@ -22,4 +22,4 @@ select 'private '
 )
        || ';' as field_declaration
   from cols
- where table_name = 'MEMBER'
+ where table_name = 'REVIEW'

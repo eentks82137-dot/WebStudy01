@@ -97,6 +97,14 @@
 
 
 
+        <!-- Data Faker (테스트 데이터 생성) -->
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>2.5.4</version>
+            <scope>compile</scope>
+        </dependency>
+
 
         
         <!-- DB -->

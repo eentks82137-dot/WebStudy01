@@ -1,8 +1,10 @@
 package kr.or.ddit.member.dao;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.function.Failable;
@@ -12,6 +14,20 @@ import kr.or.ddit.member.dto.MemberDTO;
 
 public class MemberDAOImpl implements MemberDAO {
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+
+    private Function<ResultSet, MemberDTO> rowMapper = Failable.asFunction(rs -> {
+        String role_name = rs.getString("role_name");
+        MemberDTO memberDTO = MemberDTO.builder()
+                .memId(rs.getString("mem_id"))
+                .memName(rs.getString("mem_name"))
+                .memPass(rs.getString("mem_pass"))
+                .memRoles(new ArrayList<>())
+                .build();
+        if (StringUtils.isNotBlank(role_name)) {
+            memberDTO.getMemRoles().add(role_name);
+        }
+        return memberDTO;
+    });
 
     @Override
     public MemberDTO selectMember(String username) {
@@ -27,19 +43,8 @@ public class MemberDAOImpl implements MemberDAO {
                 """;
         List<MemberDTO> list = jdbcTemplate.queryForList(sql, Failable.asConsumer(pstmt -> {
             pstmt.setString(1, username);
-        }), Failable.asFunction(rs -> {
-            String role_name = rs.getString("role_name");
-            MemberDTO memberDTO = MemberDTO.builder()
-                    .memId(rs.getString("mem_id"))
-                    .memName(rs.getString("mem_name"))
-                    .memPass(rs.getString("mem_pass"))
-                    .memRoles(new ArrayList<>())
-                    .build();
-            if (StringUtils.isNotBlank(role_name)) {
-                memberDTO.getMemRoles().add(role_name);
-            }
-            return memberDTO;
-        }));
+        }), rowMapper);
+
         if (list.isEmpty()) {
             return null;
         } else {
@@ -80,19 +85,7 @@ public class MemberDAOImpl implements MemberDAO {
                   left outer join member_role mr
                 on ( m.mem_id = mr.mem_id )
                 """;
-        return jdbcTemplate.queryForList(sql, null, Failable.asFunction(rs -> {
-            String role_name = rs.getString("role_name");
-            MemberDTO memberDTO = MemberDTO.builder()
-                    .memId(rs.getString("mem_id"))
-                    .memName(rs.getString("mem_name"))
-                    .memPass(rs.getString("mem_pass"))
-                    .memRoles(new ArrayList<>())
-                    .build();
-            if (StringUtils.isNotBlank(role_name)) {
-                memberDTO.getMemRoles().add(role_name);
-            }
-            return memberDTO;
-        }));
+        return jdbcTemplate.queryForList(sql, null, rowMapper);
     }
 
     @Override

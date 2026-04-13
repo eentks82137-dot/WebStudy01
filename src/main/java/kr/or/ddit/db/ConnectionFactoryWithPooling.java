@@ -5,39 +5,32 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import javax.sql.DataSource;
-
 import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ConnectionFactoryWithPooling {
-    static String url;
-    static String username;
-    static String password;
-    static DataSource dataSource;
-    static String maximumPoolSize;
-    static String minimumIdle;
-    static String connectionTimeoutMs;
+    private static final String BASENAME = "kr.or.ddit.db.DbInfo";
+    private static final Object LOCK = new Object();
 
-    static String driverClassName;
+    private static volatile HikariDataSource dataSource;
 
-    static {
-        log.info("======================= ConnectionFactory Static Block =======================");
-        String basename = "kr.or.ddit.db.DbInfo";
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(basename);
-        url = resourceBundle.getString("url");
-        username = resourceBundle.getString("username");
-        password = resourceBundle.getString("password");
-        maximumPoolSize = resourceBundle.getString("maximumPoolSize");
-        minimumIdle = resourceBundle.getString("minimumIdle");
-        connectionTimeoutMs = resourceBundle.getString("connectionTimeoutMs");
-        driverClassName = resourceBundle.getString("driverClassName");
+    private ConnectionFactoryWithPooling() {
+    }
+
+    private static HikariDataSource createDataSource() {
+        log.info("======================= Initializing Hikari DataSource =======================");
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(BASENAME);
+        String url = resourceBundle.getString("url");
+        String username = resourceBundle.getString("username");
+        String password = resourceBundle.getString("password");
+        String maximumPoolSize = resourceBundle.getString("maximumPoolSize");
+        String minimumIdle = resourceBundle.getString("minimumIdle");
+        String connectionTimeoutMs = resourceBundle.getString("connectionTimeoutMs");
+        String driverClassName = resourceBundle.getString("driverClassName");
 
         HikariDataSource hikariDataSource = new HikariDataSource();
-        dataSource = hikariDataSource;
-
         hikariDataSource.setJdbcUrl(url);
         hikariDataSource.setUsername(username);
         hikariDataSource.setPassword(password);
@@ -47,10 +40,42 @@ public class ConnectionFactoryWithPooling {
         hikariDataSource.setConnectionTimeout(Integer.parseInt(connectionTimeoutMs));
 
         hikariDataSource.setDriverClassName(driverClassName);
+        return hikariDataSource;
+    }
 
+    private static HikariDataSource getDataSource() {
+        HikariDataSource current = dataSource;
+        if (current != null) {
+            return current;
+        }
+
+        synchronized (LOCK) {
+            if (dataSource == null) {
+                dataSource = createDataSource();
+            }
+            return dataSource;
+        }
     }
 
     public static Connection createConnection() throws SQLException {
-        return dataSource.getConnection();
+        return getDataSource().getConnection();
+    }
+
+    public static void shutdown() {
+        HikariDataSource current = dataSource;
+        if (current == null) {
+            return;
+        }
+
+        synchronized (LOCK) {
+            current = dataSource;
+            if (current == null) {
+                return;
+            }
+
+            dataSource = null;
+            current.close();
+            log.info("======================= Hikari DataSource Closed =======================");
+        }
     }
 }
